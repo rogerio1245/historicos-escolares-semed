@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b66">
+<meta name="description" content="Sistema de Históricos Escolares da SEMED Anadia.">
+<title>Históricos Escolares | SEMED Anadia</title>
+<style>
+:root{--navy:#123b66;--blue:#176aa3;--blue2:#2d8fc4;--gold:#f6bd45;--green:#64b83b;--ink:#15344c;--muted:#5d7487;--line:#dce8f1}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f2f7fb;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;line-height:1.5}
+.topbar{background:#123653;color:white;min-height:78px;display:flex;align-items:center}
+.topbar-inner{width:min(1120px,calc(100% - 40px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:.7px}
+.brand-mark{width:44px;height:44px;border-radius:13px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:25px}
+.brand small{display:block;color:#dceeff;font-size:10px;letter-spacing:1.5px;margin-top:2px}
+.top-note{font-size:12px;color:#d9e9f6}
+main{width:min(1120px,calc(100% - 40px));margin:32px auto 44px}
+.hero{position:relative;overflow:hidden;min-height:490px;border-radius:28px;background:linear-gradient(115deg,#123b66 0%,#205e91 60%,#287ca9 100%);color:#fff;box-shadow:0 20px 50px #123b6624}
+.hero:before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;border:1px solid #ffffff22;right:-120px;top:-170px;box-shadow:0 0 0 35px #ffffff08,0 0 0 70px #ffffff06;pointer-events:none}
+.hero:after{content:"";position:absolute;right:22%;bottom:-250px;width:390px;height:390px;border-radius:50%;background:#64b83b18;pointer-events:none}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:clamp(28px,5vw,58px);min-height:490px}
+.slide-copy{min-height:300px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;padding:8px 13px;border-radius:999px;border:1px solid #ffffff3b;background:#ffffff12;color:#fff;font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px #f6bd4525}
+.slide{display:none;animation:fadeIn .55s ease}
+.slide.active{display:block}
+h1{font-size:clamp(34px,4.4vw,55px);letter-spacing:-1.5px;line-height:1.08;margin:24px 0 16px;max-width:650px}
+.slide p{font-size:16px;line-height:1.8;color:#e2eff9;max-width:570px;margin:0}
+.slide .highlight{color:#fff;font-weight:850}
+.slide-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;border-radius:11px;padding:13px 18px;font-size:13px;font-weight:900;transition:transform .18s,box-shadow .18s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px #061d3226}
+.btn-gold{background:var(--gold);color:#183755}
+.btn-outline{border:1px solid #ffffff70;color:#fff;background:#ffffff09}
+.carousel-controls{display:flex;align-items:center;gap:10px;margin-top:28px}
+.dot{width:9px;height:9px;border:0;border-radius:20px;padding:0;background:#ffffff55;cursor:pointer;transition:width .2s,background .2s}
+.dot.active{width:27px;background:var(--gold)}
+.carousel-btn{width:32px;height:32px;border-radius:50%;border:1px solid #ffffff60;background:#ffffff10;color:#fff;cursor:pointer;font-size:17px}
+.visual{position:relative;min-height:330px;display:flex;align-items:center;justify-content:center}
+.visual-halo{position:absolute;width:270px;height:270px;border-radius:50%;background:#ffffff0b;border:1px solid #ffffff22;box-shadow:0 0 0 22px #ffffff06,0 0 0 45px #ffffff04}
+.paper{position:relative;width:min(100%,325px);background:#fff;color:var(--ink);border-radius:12px;padding:25px 24px;box-shadow:0 25px 45px #001e3745;transform:rotate(2deg)}
+.paper-head{display:flex;gap:11px;align-items:center;border-bottom:2px solid #e6eef4;padding-bottom:15px}
+.paper-icon{width:47px;height:47px;flex:0 0 47px;border-radius:13px;background:#e8f5fd;display:grid;place-items:center;font-size:25px;color:var(--blue)}
+.paper-head strong{display:block;color:var(--blue);font-size:12px;line-height:1.4}
+.paper-head small{display:block;color:#71889a;font-size:9px;letter-spacing:.7px;margin-top:3px}
+.paper-title{text-align:center;font-size:12px;font-weight:950;letter-spacing:.8px;margin:18px 0 4px}
+.paper-sub{text-align:center;color:#8293a0;font-size:9px;margin:0 0 15px}
+.line{height:7px;background:#e6edf3;border-radius:5px;margin:8px 0}.line.mid{width:80%}.line.short{width:55%}
+.paper-table{margin-top:17px;border:1px solid #d5e2ec}
+.paper-table div{display:grid;grid-template-columns:1.4fr repeat(3,1fr);height:20px;border-bottom:1px solid #d5e2ec}
+.paper-table div:first-child{background:#eaf5fc}.paper-table div:last-child{border:0}.paper-table span{border-right:1px solid #d5e2ec}.paper-table span:last-child{border:0}
+.paper-tag{position:absolute;right:-14px;bottom:2px;padding:10px 13px;background:var(--gold);color:#173958;border-radius:9px;font-size:10px;font-weight:950;transform:rotate(-4deg);box-shadow:0 8px 20px #001e3735}
+.mini-icons{position:absolute;left:0;right:0;bottom:0;height:36px;display:flex;justify-content:center;align-items:center;gap:22px;color:#d9efff35;font-size:19px;letter-spacing:3px;overflow:hidden;white-space:nowrap;pointer-events:none}
+.models{padding:46px 0 0}
+.section-heading{text-align:center;margin:0 auto 25px;max-width:700px}
+.kicker{color:#398d27;font-size:11px;font-weight:950;letter-spacing:1.8px;text-transform:uppercase}
+h2{font-size:clamp(25px,3vw,34px);line-height:1.2;color:#123b66;letter-spacing:-.6px;margin:9px 0}
+.section-heading p{font-size:14px;color:var(--muted);margin:0}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:19px;padding:27px;box-shadow:0 8px 25px #153e5909;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 36px #153e591b}
+.card:before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,#176aa3,#49b8e5)}
+.card.eja:before{background:linear-gradient(90deg,#398d27,#8bcd4b)}
+.card-head{display:flex;align-items:center;gap:15px;margin-bottom:15px}
+.card-icon{width:58px;height:58px;flex:0 0 58px;border-radius:16px;background:#e7f5fd;display:grid;place-items:center;font-size:28px}
+.eja .card-icon{background:#edf8e7}
+.card h3{font-size:19px;line-height:1.3;color:#123b66;margin:0 0 4px}
+.subtitle{font-size:11px;color:var(--muted);font-weight:900;letter-spacing:.8px;text-transform:uppercase}
+.card p{color:var(--muted);font-size:14px;margin:0;min-height:45px}
+.card .btn{margin-top:19px;background:#123b66;color:white}
+.card.eja .btn{background:#398d27}
+.credit{margin-top:34px;padding:22px 24px;border-radius:17px;background:#e8f3fa;border:1px solid #d2e6f2;text-align:center}
+.credit .credit-label{color:#388a2a;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:1.7px}
+.credit p{margin:7px 0 0;color:#234b68;font-size:14px}
+.credit strong{color:#123b66}
+/* Rodapé inspirado na faixa educacional da parede da SEMED */
+.footer-pattern{
+  min-height:48px;display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.5vw,30px);
+  padding:8px 18px;background:#2688bd;border-top:3px solid #4bb6df;border-bottom:3px solid #123b66;
+  color:#eaf8ff;overflow:hidden;white-space:nowrap;font-size:clamp(17px,2vw,24px);
+}
+.footer-pattern span:nth-child(3n+1){color:#b6e34b}
+.footer-pattern span:nth-child(3n+2){color:#fff}
+.footer-pattern span:nth-child(3n){color:#123b66}
+footer{position:relative;background:#123653;color:#d9eaf6;text-align:center;padding:24px 20px 23px;font-size:12px}
+footer:before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#49b8e5 0 34%,#fff 34% 67%,#64b83b 67%)}
+footer strong{color:#fff}
+.footer-credit{margin:0 0 7px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#b9e2f4;font-weight:900}
+.footer-main{margin:0;font-size:13px}
+.footer-main strong{color:#fff}
+.footer-sub{margin:7px 0 0;color:#c4dbea;font-size:11px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr;gap:0}.slide-copy{min-height:290px}.visual{min-height:310px}.cards{grid-template-columns:1fr}.card p{min-height:0}.hero{min-height:auto}}
+@media(max-width:520px){.topbar{min-height:70px}.topbar-inner,main{width:calc(100% - 28px)}.top-note{display:none}.brand-mark{width:40px;height:40px}.hero{border-radius:21px}.hero-grid{padding:27px 21px 40px}.slide-copy{min-height:350px}h1{font-size:36px}.slide p{font-size:14px}.visual{min-height:270px}.paper{width:87%;padding:20px}.visual-halo{width:220px;height:220px}.models{padding-top:38px}.card{padding:22px}.credit{padding:20px 16px}.mini-icons{gap:14px}}
+@media(max-width:520px){.footer-pattern{justify-content:flex-start;gap:20px}.footer-pattern span{flex:0 0 auto}.footer-sub{line-height:1.7}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><div class="brand-mark" aria-hidden="true">▤</div><div>SEMED ANADIA<small>SISTEMA DE HISTÓRICOS ESCOLARES</small></div></div>
+    <div class="top-note">Educação • Organização • Aprendizagem</div>
+  </div>
+</header>
+<main>
+  <section class="hero" aria-label="Apresentação do sistema em slides">
+    <div class="hero-grid">
+      <div class="slide-copy">
+        <div class="eyebrow">Secretaria Municipal de Educação</div>
+        <div class="slide active">
+          <h1>Históricos escolares com mais praticidade.</h1>
+          <p>Uma solução de apoio à rotina escolar para organizar os registros dos estudantes e preparar históricos com mais <span class="highlight">agilidade e clareza</span>.</p>
+          <div class="slide-actions"><a class="btn btn-gold" href="#modelos">✦ Escolher modelo →</a></div>
+        </div>
+        <div class="slide">
+          <h1>Organização para a vida escolar.</h1>
+          <p>Reúna as informações do estudante em um documento organizado, preparado para conferência e emissão pela unidade escolar.</p>
+          <div class="slide-actions"><a class="btn btn-gold" href="#modelos">Conhecer os modelos →</a></div>
+        </div>
+        <div class="slide">
+          <h1>Regular ou EJA: escolha o modelo.</h1>
+          <p>O sistema disponibiliza modelos para o <span class="highlight">Ensino Fundamental regular</span> e para a <span class="highlight">Educação de Jovens e Adultos</span>.</p>
+          <div class="slide-actions"><a class="btn btn-gold" href="#modelos">Acessar modelos →</a></div>
+        </div>
+        <div class="carousel-controls" aria-label="Controles do slide">
+          <button class="carousel-btn" id="prevSlide" aria-label="Slide anterior">‹</button>
+          <button class="dot active" aria-label="Mostrar slide 1" data-slide="0"></button>
+          <button class="dot" aria-label="Mostrar slide 2" data-slide="1"></button>
+          <button class="dot" aria-label="Mostrar slide 3" data-slide="2"></button>
+          <button class="carousel-btn" id="nextSlide" aria-label="Próximo slide">›</button>
+        </div>
+      </div>
+      <div class="visual" aria-hidden="true">
+        <div class="visual-halo"></div>
+        <div class="paper">
+          <div class="paper-head"><div class="paper-icon">▤</div><div><strong>SECRETARIA MUNICIPAL<br>DE EDUCAÇÃO</strong><small>ANADIA · ALAGOAS</small></div></div>
+          <div class="paper-title">HISTÓRICO ESCOLAR</div><p class="paper-sub">REGISTRO DA VIDA ESCOLAR DO ESTUDANTE</p>
+          <div class="line mid"></div><div class="line short"></div><div class="line"></div><div class="line mid"></div>
+          <div class="paper-table"><div><span></span><span></span><span></span><span></span></div><div><span></span><span></span><span></span><span></span></div><div><span></span><span></span><span></span><span></span></div><div><span></span><span></span><span></span><span></span></div><div><span></span><span></span><span></span><span></span></div></div>
+          <div class="line mid" style="margin-top:17px"></div><div class="line short"></div>
+        </div>
+        <div class="paper-tag">✓ PRONTO PARA CONFERIR</div>
+      </div>
+    </div>
+    <div class="mini-icons" aria-hidden="true">✎　♧　⚽　♡　▤　✦　♧　⚽　♡　▤　✎</div>
+  </section>
+
+  <section class="models" id="modelos">
+    <div class="section-heading"><div class="kicker">Acesse o sistema</div><h2>Escolha o tipo de histórico</h2><p>Selecione uma das opções abaixo para abrir o formulário correspondente.</p></div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-head"><div class="card-icon" aria-hidden="true">📘</div><div><h3>Ensino Fundamental regular</h3><div class="subtitle">1º ao 9º ano</div></div></div>
+        <p>Modelo para os anos iniciais e finais do Ensino Fundamental.</p>
+        <a class="btn" href="./historico_escolar.html">Abrir modelo regular →</a>
+      </article>
+      <article class="card eja">
+        <div class="card-head"><div class="card-icon" aria-hidden="true">📗</div><div><h3>Educação de Jovens e Adultos (EJA)</h3><div class="subtitle">1º ao 9º período</div></div></div>
+        <p>Modelo para os segmentos da Educação de Jovens e Adultos.</p>
+        <a class="btn" href="./historico_escolar_eja.html">Abrir modelo EJA →</a>
+      </article>
+    </div>
+    <div class="credit">
+      <div class="credit-label">Iniciativa SEMED · Sistemas</div>
+      <p>Desenvolvido por <strong>Rogério Cerqueira</strong> e <strong>Natanael Fernandiz</strong>.</p>
+    </div>
+  </section>
+</main>
+<div class="footer-pattern" aria-hidden="true">
+  <span>♧</span><span>✎</span><span>◎</span><span>♡</span><span>▤</span><span>✦</span><span>♧</span><span>✎</span><span>◎</span><span>♡</span><span>▤</span><span>✦</span><span>♧</span><span>✎</span><span>◎</span><span>♡</span>
+</div>
+<footer>
+  <p class="footer-credit">Iniciativa SEMED · Sistemas</p>
+  <p class="footer-main"><strong>SEMED Anadia</strong> · Alagoas &nbsp; | &nbsp; Sistema de Históricos Escolares</p>
+  <p class="footer-sub">Desenvolvido por <strong>Rogério Cerqueira</strong> e <strong>Natanael Fernandiz</strong>.</p>
+</footer>
+<script>
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const dots = [...document.querySelectorAll('.dot')];
+  const previous = document.getElementById('prevSlide');
+  const next = document.getElementById('nextSlide');
+  let current = 0;
+  let timer;
+  function showSlide(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+      dot.setAttribute('aria-pressed', i === current ? 'true' : 'false');
+    });
+  }
+  function restartTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => showSlide(current + 1), 6000);
+  }
+  previous.addEventListener('click', () => { showSlide(current - 1); restartTimer(); });
+  next.addEventListener('click', () => { showSlide(current + 1); restartTimer(); });
+  dots.forEach(dot => dot.addEventListener('click', () => { showSlide(Number(dot.dataset.slide)); restartTimer(); }));
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('mouseenter', () => clearInterval(timer));
+  hero.addEventListener('mouseleave', restartTimer);
+  hero.addEventListener('focusin', () => clearInterval(timer));
+  hero.addEventListener('focusout', restartTimer);
+  showSlide(0);
+  restartTimer();
+})();
+</script>
+</body>
+</html>
