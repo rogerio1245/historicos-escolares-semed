@@ -43,6 +43,49 @@
   .sheet:nth-child(2) .certificate-frame .signature{margin:10px 8px 4px!important}
   .sheet:nth-child(2) .certificate-frame .footer{margin-top:3px!important}
 }
+/* Ajuste fino da distribuição vertical na segunda página */
+@media print{
+  .sheet:nth-child(2) .section-title[style*="margin-top:18px"]{
+    margin-top:6px!important;
+    margin-bottom:7px!important;
+  }
+  .sheet:nth-child(2) .criteria{
+    font-size:6.7pt!important;
+    line-height:1.13!important;
+  }
+  .sheet:nth-child(2) .criteria br+br{
+    line-height:1!important;
+  }
+  .sheet:nth-child(2) .obs-title{
+    margin-top:16px!important;
+    padding:4px 7px!important;
+  }
+  .sheet:nth-child(2) .obs{
+    padding:5px 7px!important;
+  }
+  .sheet:nth-child(2) .certificate-frame{
+    margin-top:24mm!important;
+    padding:7px 8px 5px!important;
+  }
+  .sheet:nth-child(2) .certificate-frame .signature{
+    margin:12px 8px 5px!important;
+  }
+  .sheet:nth-child(2) .certificate-frame .footer{
+    margin-top:4px!important;
+  }
+  /* Nunca imprimir botões, setas ou controles nativos das caixas de edição */
+  .sheet:nth-child(2) input,
+  .sheet:nth-child(2) select,
+  .sheet:nth-child(2) textarea{
+    appearance:none!important;
+    -webkit-appearance:none!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    resize:none!important;
+  }
+  .sheet:nth-child(2) select::-ms-expand{display:none!important}
+  .sheet:nth-child(2) textarea::-webkit-resizer{display:none!important}
+}
 @page{size:A4 portrait;margin:9mm}@media print{body{background:#fff}.app,.no-print{display:none!important}.sheet{box-shadow:none;margin:0;max-width:none;padding:0;break-after:page;page-break-after:always}.sheet:last-child{break-after:auto;page-break-after:auto}.sheet input,.sheet textarea{color:#000}.records td textarea{height:auto!important;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere;resize:none}.records td input{white-space:normal}.sheet{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 @media(max-width:750px){.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sheet{overflow-x:auto;padding:6mm}.curr{font-size:6pt}.curr th:first-child,.curr td:first-child{width:28%}}
 </style></head><body><div class="app">
