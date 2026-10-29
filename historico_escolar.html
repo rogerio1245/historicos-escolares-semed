@@ -123,6 +123,13 @@
   .sheet:nth-child(2) .certificate-frame .footer { font-size: 7.5pt !important; margin-top: 6px !important; line-height: 1.2 !important; }
 }
 
+
+/* V6: distribuir a segunda página até perto do rodapé, mantendo uma folga visual */
+@media print {
+  .sheet:nth-child(2) .certificate-frame {
+    margin-top: 28mm !important;
+  }
+}
 </style></head><body><div class="app">
 <div class="panel"><h1>Gerador de Histórico Escolar</h1><p>Prefeitura Municipal de Anadia · arquivo local, sem banco de dados e sem servidor. Preencha os dados e use “Imprimir / Salvar em PDF”.</p>
 <div class="formgrid">
