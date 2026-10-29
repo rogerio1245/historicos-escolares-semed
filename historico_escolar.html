@@ -216,7 +216,31 @@ function resizeSchoolNames(){document.querySelectorAll('.recschool').forEach(el=
 document.getElementById('records').addEventListener('input',e=>{if(e.target.classList.contains('recschool'))resizeSchoolNames()});window.addEventListener('beforeprint',resizeSchoolNames);window.addEventListener('afterprint',resizeSchoolNames);resizeSchoolNames();
 const map={student:'pStudent',sex:'pSex',cpf:'pCpf',birth:'pBirth',natural:'pNatural',state:'pState',nationality:'pNationality',mother:'pMother',father:'pFather',docdate:'pDate',conclusion:'pConclusion',secretary:'pSecretary',secretaryreg:'pSecretaryReg',manager:'pManager',managerreg:'pManagerReg',address:'pAddress',phone:'pPhone',email:'pEmail',inep:'pInep'};
 function update(){let s=schools[+sel.value]||schools[14];document.getElementById('inep').value=s[1];document.getElementById('pSchool').textContent=s[0];document.getElementById('pInep').textContent=s[1];Object.entries(map).forEach(([id,pid])=>{let el=document.getElementById(id),out=document.getElementById(pid);if(el&&out)out.textContent=el.value});document.getElementById('pPhone2').textContent=document.getElementById('phone').value;document.getElementById('pEmail2').textContent=document.getElementById('email').value;document.getElementById('pCertStudent').textContent=document.getElementById('student').value;document.getElementById('pCertText').textContent=document.getElementById('certtext').value;['secretary','secretaryreg','manager','managerreg'].forEach((id,i)=>{let ids=['pSecretary2','pSecretaryReg2','pManager2','pManagerReg2'];document.getElementById(ids[i]).textContent=document.getElementById(id).value});document.querySelectorAll('.recschool').forEach(x=>{if(!x.value)x.value=s[0]});resizeSchoolNames()}
-document.getElementById('birth').addEventListener('input',e=>{const el=e.target;const digits=el.value.replace(/\\D/g,'').slice(0,8);let value=digits;if(digits.length>4)value=digits.slice(0,2)+'/'+digits.slice(2,4)+'/'+digits.slice(4);else if(digits.length>2)value=digits.slice(0,2)+'/'+digits.slice(2);el.value=value;update()});document.getElementById('cpf').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');e.target.value=v;update()});document.querySelectorAll('.app input,.app select').forEach(e=>e.addEventListener('input',update));document.getElementById('curriculum').addEventListener('input',updateTotals);sel.addEventListener('change',()=>{document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);update()});document.getElementById('docdate').value='Anadia-AL, ____ de ______________ de ______';update();
+const birthInput=document.getElementById('birth');
+function formatBirthInput(el){
+ const oldValue=el.value, oldPos=el.selectionStart??oldValue.length;
+ const digitsBefore=(oldValue.slice(0,oldPos).match(/[0-9]/g)||[]).length;
+ const digits=oldValue.replace(/[^0-9]/g,'').slice(0,8);
+ let formatted=digits;
+ if(digits.length>4) formatted=digits.slice(0,2)+'/'+digits.slice(2,4)+'/'+digits.slice(4);
+ else if(digits.length>2) formatted=digits.slice(0,2)+'/'+digits.slice(2);
+ el.value=formatted;
+ let pos=0, seen=0;
+ while(pos<formatted.length && seen<digitsBefore){if(/[0-9]/.test(formatted[pos]))seen++;pos++}
+ while(pos<formatted.length && formatted[pos]==='/')pos++;
+ el.setSelectionRange(pos,pos);
+ update();
+}
+birthInput.addEventListener('keydown',e=>{
+ const el=e.target, pos=el.selectionStart, end=el.selectionEnd, value=el.value;
+ if(e.key==='Backspace' && pos===end && pos>0 && value[pos-1]==='/'){
+  e.preventDefault();const before=value.slice(0,pos-1),after=value.slice(pos);
+  el.value=before.slice(0,-1)+after;const p=pos-2;el.setSelectionRange(Math.max(0,p),Math.max(0,p));formatBirthInput(el);
+ } else if(e.key==='Delete' && pos===end && value[pos]==='/'){
+  e.preventDefault();el.value=value.slice(0,pos)+value.slice(pos+2);el.setSelectionRange(pos,pos);formatBirthInput(el);
+ }
+});
+birthInput.addEventListener('input',e=>formatBirthInput(e.target));document.getElementById('cpf').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');e.target.value=v;update()});document.querySelectorAll('.app input,.app select').forEach(e=>e.addEventListener('input',update));document.getElementById('curriculum').addEventListener('input',updateTotals);sel.addEventListener('change',()=>{document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);update()});document.getElementById('docdate').value='Anadia-AL, ____ de ______________ de ______';update();
 function clearStudent(){['student','sex','cpf','birth','mother','father','conclusion','secretary','secretaryreg','manager','managerreg'].forEach(id=>document.getElementById(id).value='');document.querySelectorAll('#curriculum input').forEach(i=>i.value='');updateTotals();document.querySelectorAll('#records input').forEach((i,n)=>{if(i.classList.contains('cycle-label'))return;if(i.placeholder==='Ano letivo')i.value='';});document.querySelectorAll('.recschool').forEach(x=>{x.value=''});resizeSchoolNames();update()}
 function fillExample(){document.getElementById('student').value='NOME DO ALUNO';document.getElementById('sex').value='MASCULINO';document.getElementById('birth').value='01/01/2012';document.getElementById('conclusion').value='2026';update()}
 
