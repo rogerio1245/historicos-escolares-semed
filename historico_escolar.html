@@ -1,64 +1,163 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gerador de Histórico Escolar EJA — Anadia/AL</title>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gerador de Histórico Escolar — Anadia/AL</title>
 <style>
-:root{font-family:Arial,Helvetica,sans-serif;color:#111}*{box-sizing:border-box}body{margin:0;background:#eef1f5}.app{max-width:1200px;margin:24px auto;padding:0 16px}.panel{background:#fff;border:1px solid #d5dbe3;border-radius:12px;padding:18px;margin-bottom:16px}.panel h1{font-size:23px;margin:0 0 8px}.panel p{color:#4b5563;margin:0 0 14px}.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700}.field input,.field select,.field textarea{width:100%;font:14px Arial;padding:9px;border:1px solid #b8c1cc;border-radius:6px;background:#fff}.wide{grid-column:span 2}.full{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.actions button{border:0;border-radius:7px;padding:10px 15px;font-weight:bold;cursor:pointer;background:#174a7e;color:white}.actions .secondary{background:#e5eaf0;color:#182230}.hint{font-size:12px;color:#555;margin-top:8px}.sheet{background:white;max-width:210mm;margin:18px auto;padding:10mm;box-shadow:0 2px 12px #0002;font-size:9pt}.schoolhead{text-align:center;border:1px solid #333;padding:7px 10px;position:relative;min-height:75px}.schoolhead h3{margin:3px;font-size:11pt}.schoolhead p{margin:3px}.schoolhead{display:grid;grid-template-columns:68px minmax(0,1fr) 68px;align-items:center;gap:10px;padding:7px 8px;min-height:88px}.schoolhead-text{min-width:0;text-align:center}.schoolhead .head-logo{width:64px;height:76px;object-fit:contain;display:block;margin:auto}.schoolhead .schoolhead-text p{margin:2px 0;font-size:8.5pt;line-height:1.15}.schoolhead .schoolhead-text h3{margin:3px 0;font-size:10.5pt;line-height:1.15}@media print{.schoolhead{break-inside:avoid}.schoolhead .head-logo{width:62px;height:72px}}@media(max-width:520px){.schoolhead{grid-template-columns:48px minmax(0,1fr) 48px;gap:4px;padding:5px}.schoolhead .head-logo{width:45px;height:58px}.schoolhead .schoolhead-text p{font-size:7pt}.schoolhead .schoolhead-text h3{font-size:8pt}}.doc-title{text-align:center;font-weight:bold;font-size:13pt;margin:14px 0}.info{border-collapse:collapse;width:100%;table-layout:fixed;margin-bottom:8px}.info td,.info th{border:1px solid #333;padding:4px;vertical-align:middle}.curr{font-size:7pt;border-collapse:collapse;width:100%;table-layout:fixed}.curr th,.curr td{border:1px solid #333;text-align:center;padding:3px 1px;overflow-wrap:anywhere}.curr th:first-child,.curr td:first-child{width:24%;text-align:left;padding-left:4px;font-size:7.2pt}.curr .group th{font-size:8pt;height:25px}.curr .group th:first-child{text-align:center}.curr .group .fund2{border-left:2px solid #111!important}.curr .fund2-start{border-left:2px solid #111!important}.curr .disabled-cell{background:#f4f4f4;color:#111}.curr .ch-input{width:100%;border:0;border-radius:0;outline:none;text-align:center;font-size:7pt;padding:1px;background:transparent;appearance:none;-webkit-appearance:none;box-shadow:none}.curr .ch-input:focus{outline:1px solid #4385d1;background:#eef6ff}.curr .total-ch{font-weight:bold}.curr input{width:100%;min-width:0;border:0;text-align:center;font-size:7pt;padding:1px;background:transparent}.curr input:focus{outline:1px solid #4385d1;background:#eef6ff}.curr .ch-input::-webkit-inner-spin-button,.curr .ch-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.small{font-size:8pt}.legal{font-size:8pt;margin:8px 0}.signature{display:flex;justify-content:space-between;gap:25px;margin:32px 10px 12px;text-align:center}.signature div{width:48%;border-top:1px solid #333;padding-top:5px;font-size:8pt}.section-title{text-align:center;font-weight:bold;margin:5px 0 10px}.records{table-layout:fixed}.records th:nth-child(1),.records td:nth-child(1){width:19%}.records th:nth-child(2),.records td:nth-child(2){width:10%}.records th:nth-child(3),.records td:nth-child(3){width:39%}.records th:nth-child(4),.records td:nth-child(4){width:22%}.records th:nth-child(5),.records td:nth-child(5){width:10%}.records td input,.records td select,.records td textarea{width:100%;min-width:0;border:0;padding:3px;font:8pt Arial,sans-serif;background:transparent;box-sizing:border-box}.records td textarea{display:block;resize:none;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.2;min-height:22px}.records th,.records td{padding:5px;overflow-wrap:anywhere}.records th[contenteditable="true"]{outline:0;cursor:text}.records th[contenteditable="true"]:focus{outline:1px solid #4385d1;background:#eef6ff}.criteria{font-size:8pt;line-height:1.25}.certificate-frame{position:relative;border:1.5px solid #c49a3a;padding:12px 10px 8px;margin:14px 0 0;outline:1px solid #e5c875;outline-offset:3px}.certificate-frame:before,.certificate-frame:after{content:"❧";position:absolute;color:#c49a3a;font-size:18px;line-height:1;background:#fff;padding:0 3px}.certificate-frame:before{top:-9px;left:8px}.certificate-frame:after{top:-9px;right:8px;transform:scaleX(-1)}.certificate{text-align:center;font-weight:bold;margin:0}.certificate-frame .signature{margin:24px 10px 10px}.certificate-frame .footer{margin-top:8px}.cert-heading{display:inline-block;position:relative;border:0;border-radius:0;padding:2px 12px;line-height:1.05;white-space:nowrap;color:#111;isolation:isolate}.cert-heading::before{content:"✪";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:34pt;line-height:1;color:#c49a3a;opacity:.18;z-index:-1;pointer-events:none}.cert-ornament{display:none}.obs{min-height:40px;border:1px solid #777;background:#e6e6e6;padding:8px 10px;overflow-wrap:anywhere}.obs-title{border:1px solid #777;border-bottom:0;background:#e6e6e6;padding:5px 8px;margin-bottom:0!important}.obs[contenteditable="true"],.obs-title[contenteditable="true"]{cursor:text;outline:0}.obs[contenteditable="true"]:focus,.obs-title[contenteditable="true"]:focus{outline:1px solid #4385d1}.footer{text-align:center;font-size:8pt;margin-top:10px}.pagebreak{break-before:page;page-break-before:always}.no-print{display:block}
+:root{font-family:Arial,Helvetica,sans-serif;color:#111}*{box-sizing:border-box}body{margin:0;background:#eef1f5}.app{max-width:1200px;margin:24px auto;padding:0 16px}.panel{background:#fff;border:1px solid #d5dbe3;border-radius:12px;padding:18px;margin-bottom:16px}.panel h1{font-size:23px;margin:0 0 8px}.panel p{color:#4b5563;margin:0 0 14px}.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700}.field input,.field select,.field textarea{width:100%;font:14px Arial;padding:9px;border:1px solid #b8c1cc;border-radius:6px;background:#fff}.wide{grid-column:span 2}.full{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.actions button{border:0;border-radius:7px;padding:10px 15px;font-weight:bold;cursor:pointer;background:#174a7e;color:white}.actions .secondary{background:#e5eaf0;color:#182230}.hint{font-size:12px;color:#555;margin-top:8px}.sheet{background:white;max-width:210mm;margin:18px auto;padding:10mm;box-shadow:0 2px 12px #0002;font-size:9pt}.schoolhead{text-align:center;border:1px solid #333;padding:7px 10px;position:relative;min-height:75px}.schoolhead h3{margin:3px;font-size:11pt}.schoolhead p{margin:3px}.schoolhead{display:grid;grid-template-columns:68px minmax(0,1fr) 68px;align-items:center;gap:10px;padding:7px 8px;min-height:88px}.schoolhead-text{min-width:0;text-align:center}.schoolhead .head-logo{width:64px;height:76px;object-fit:contain;display:block;margin:auto}.schoolhead .schoolhead-text p{margin:2px 0;font-size:8.5pt;line-height:1.15}.schoolhead .schoolhead-text h3{margin:3px 0;font-size:10.5pt;line-height:1.15}@media print{.school-admin,.school-add-btn,.school-delete-btn{display:none!important}.schoolhead{break-inside:avoid}.schoolhead .head-logo{width:62px;height:72px}}@media(max-width:520px){.schoolhead{grid-template-columns:48px minmax(0,1fr) 48px;gap:4px;padding:5px}.schoolhead .head-logo{width:45px;height:58px}.schoolhead .schoolhead-text p{font-size:7pt}.schoolhead .schoolhead-text h3{font-size:8pt}}.doc-title{text-align:center;font-weight:bold;font-size:13pt;margin:14px 0}.info{border-collapse:collapse;width:100%;table-layout:fixed;margin-bottom:8px}.info td,.info th{border:1px solid #333;padding:4px;vertical-align:middle}.curr{font-size:7pt;border-collapse:collapse;width:100%;table-layout:fixed}.curr th,.curr td{border:1px solid #333;text-align:center;padding:3px 1px;overflow-wrap:anywhere}.curr th:first-child,.curr td:first-child{width:24%;text-align:left;padding-left:4px;font-size:7.2pt}.curr .group th{font-size:8pt;height:25px}.curr .group th:first-child{text-align:center}.curr .group .fund2{border-left:2px solid #111!important}.curr .fund2-start{border-left:2px solid #111!important}.curr .disabled-cell{background:#f4f4f4;color:#111}.curr .ch-input{width:100%;border:0;border-radius:0;outline:none;text-align:center;font-size:7pt;padding:1px;background:transparent;appearance:none;-webkit-appearance:none;box-shadow:none}.curr .ch-input:focus{outline:1px solid #4385d1;background:#eef6ff}.curr .total-ch{font-weight:bold}.curr input{width:100%;min-width:0;border:0;text-align:center;font-size:7pt;padding:1px;background:transparent}.curr input:focus{outline:1px solid #4385d1;background:#eef6ff}.curr .ch-input::-webkit-inner-spin-button,.curr .ch-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.small{font-size:8pt}.legal{font-size:8pt;margin:8px 0}.signature{display:flex;justify-content:space-between;gap:25px;margin:32px 10px 12px;text-align:center}.signature div{width:48%;border-top:1px solid #333;padding-top:5px;font-size:8pt}.section-title{text-align:center;font-weight:bold;margin:5px 0 10px}.records{table-layout:fixed}.records th:nth-child(1),.records td:nth-child(1){width:19%}.records th:nth-child(2),.records td:nth-child(2){width:10%}.records th:nth-child(3),.records td:nth-child(3){width:39%}.records th:nth-child(4),.records td:nth-child(4){width:22%}.records th:nth-child(5),.records td:nth-child(5){width:10%}.records td input,.records td select,.records td textarea{width:100%;min-width:0;border:0;padding:3px;font:8pt Arial,sans-serif;background:transparent;box-sizing:border-box}.records td textarea{display:block;resize:none;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.2;min-height:22px}.records th,.records td{padding:5px;overflow-wrap:anywhere}.records th[contenteditable="true"]{outline:0;cursor:text}.records th[contenteditable="true"]:focus{outline:1px solid #4385d1;background:#eef6ff}.criteria{font-size:8pt;line-height:1.25}.certificate-frame{position:relative;border:1.5px solid #c49a3a;padding:12px 10px 8px;margin:14px 0 0;outline:1px solid #e5c875;outline-offset:3px}.certificate-frame:before,.certificate-frame:after{content:"❧";position:absolute;color:#c49a3a;font-size:18px;line-height:1;background:#fff;padding:0 3px}.certificate-frame:before{top:-9px;left:8px}.certificate-frame:after{top:-9px;right:8px;transform:scaleX(-1)}.certificate{text-align:center;font-weight:bold;margin:0}.certificate-frame .signature{margin:24px 10px 10px}.certificate-frame .footer{margin-top:8px}.cert-heading{display:inline-block;position:relative;border:0;border-radius:0;padding:2px 12px;line-height:1.05;white-space:nowrap;color:#111;isolation:isolate}.cert-heading::before{content:"✪";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:34pt;line-height:1;color:#c49a3a;opacity:.18;z-index:-1;pointer-events:none}.cert-ornament{display:none}.obs{min-height:40px;border:1px solid #777;background:#e6e6e6;padding:8px 10px;overflow-wrap:anywhere}.obs-title{border:1px solid #777;border-bottom:0;background:#e6e6e6;padding:5px 8px;margin-bottom:0!important}.obs[contenteditable="true"],.obs-title[contenteditable="true"]{cursor:text;outline:0}.obs[contenteditable="true"]:focus,.obs-title[contenteditable="true"]:focus{outline:1px solid #4385d1}.footer{text-align:center;font-size:8pt;margin-top:10px}.pagebreak{break-before:page;page-break-before:always}.no-print{display:block}
+.school-select-row{display:flex;gap:8px;align-items:stretch}.school-select-row select{flex:1;min-width:0}.school-add-btn,.school-delete-btn{white-space:nowrap;border:0;border-radius:6px;padding:9px 12px;font:700 12px Arial,sans-serif;background:#174a7e;color:#fff;cursor:pointer}.school-delete-btn{border:0;border-radius:6px;padding:9px 12px;font:700 12px Arial,sans-serif;background:#a52828;color:#fff;cursor:pointer}.school-delete-btn:hover{background:#861f1f}.school-admin{display:flex;align-items:end;gap:10px;flex-wrap:wrap;background:#eef6ff;border:1px solid #c8dff4;padding:12px;border-radius:8px;margin-top:12px}.school-admin[hidden]{display:none}.school-admin .field{flex:1;min-width:220px}.school-admin .admin-actions{display:flex;gap:8px}.school-admin .admin-actions button{border:0;border-radius:6px;padding:10px 13px;font-weight:bold;cursor:pointer;background:#174a7e;color:#fff}.school-admin .admin-actions .secondary{background:#e5eaf0;color:#182230}.school-admin-note{width:100%;font-size:12px;color:#36536c;margin:0}
+.curr td.subject-name{font-weight:600;text-align:left;padding-left:4px;cursor:text}
+.curr td.subject-name:focus{outline:1px solid #4385d1;background:#eef6ff}
+@media print{
+  .sheet:nth-child(2){font-size:8pt}
+  .sheet:nth-child(2) .section-title{margin:2px 0 5px}
+  .sheet:nth-child(2) .info td,.sheet:nth-child(2) .info th{padding:2px}
+  .sheet:nth-child(2) .records th,.sheet:nth-child(2) .records td{padding:2px}
+  .sheet:nth-child(2) .criteria{font-size:7.3pt;line-height:1.12}
+  .sheet:nth-child(2) .obs{min-height:28px;padding:4px 7px}
+  .sheet:nth-child(2) .obs-title{padding:3px 7px;margin-top:8px!important}
+  .sheet:nth-child(2) .certificate-frame{padding:7px 8px 5px;margin:8px 0 0;outline-offset:1px}
+  .sheet:nth-child(2) .certificate p{margin:4px 0;line-height:1.15}
+  .sheet:nth-child(2) #pCertStudent{font-size:9pt;line-height:1.1;margin:3px 0;overflow-wrap:anywhere}
+  .sheet:nth-child(2) .certificate-frame .signature{margin:12px 8px 5px;gap:12px}
+  .sheet:nth-child(2) .certificate-frame .footer{font-size:7pt;margin-top:4px;line-height:1.15}
+}
+@media print{
+  /* Registros complementares: sem controles nativos e sem cortar nomes longos */
+  .sheet:nth-child(2) .records{width:100%;border-collapse:collapse;table-layout:fixed}
+  .sheet:nth-child(2) .records th,.sheet:nth-child(2) .records td{padding:1.5px 3px!important;vertical-align:middle;line-height:1.05}
+  .sheet:nth-child(2) .records td input,
+  .sheet:nth-child(2) .records td select,
+  .sheet:nth-child(2) .records td textarea{
+    display:block;width:100%;max-width:100%;min-width:0;height:auto!important;min-height:0;
+    margin:0;padding:0!important;border:0!important;border-radius:0!important;
+    font:6.7pt Arial,Helvetica,sans-serif!important;line-height:1.05!important;
+    color:#000!important;background:transparent!important;resize:none!important;
+    overflow:hidden!important;appearance:none!important;-webkit-appearance:none!important;
+    box-shadow:none!important;outline:0!important;white-space:pre-wrap;overflow-wrap:anywhere;
+  }
+  .sheet:nth-child(2) .records td textarea::-webkit-resizer{display:none!important}
+  .sheet:nth-child(2) .records tr{break-inside:avoid;page-break-inside:avoid}
+  .sheet:nth-child(2) .section-title[style*="margin-top:18px"]{margin-top:5px!important}
+  .sheet:nth-child(2) .criteria{font-size:6.4pt;line-height:1.08}
+  .sheet:nth-child(2) .criteria br+br{line-height:0.65}
+  .sheet:nth-child(2) .obs-title{margin-top:4px!important}
+  .sheet:nth-child(2) .obs{min-height:0!important;padding:3px 6px!important;line-height:1.1}
+  .sheet:nth-child(2) .certificate-frame{margin-top:6px!important;padding:6px 8px 4px!important}
+  .sheet:nth-child(2) .certificate-frame .signature{margin:10px 8px 4px!important}
+  .sheet:nth-child(2) .certificate-frame .footer{margin-top:3px!important}
+}
+/* Ajuste fino da distribuição vertical na segunda página */
+@media print{
+  .sheet:nth-child(2) .section-title[style*="margin-top:18px"]{
+    margin-top:6px!important;
+    margin-bottom:7px!important;
+  }
+  .sheet:nth-child(2) .criteria{
+    font-size:6.7pt!important;
+    line-height:1.13!important;
+  }
+  .sheet:nth-child(2) .criteria br+br{
+    line-height:1!important;
+  }
+  .sheet:nth-child(2) .obs-title{
+    margin-top:16px!important;
+    padding:4px 7px!important;
+  }
+  .sheet:nth-child(2) .obs{
+    padding:5px 7px!important;
+  }
+  .sheet:nth-child(2) .certificate-frame{
+    /* Aproxima o certificado das observações, sem criar um vão artificial */
+    margin-top:8px!important;
+    padding:7px 8px 5px!important;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .sheet:nth-child(2) .certificate-frame .signature{
+    margin:12px 8px 5px!important;
+  }
+  .sheet:nth-child(2) .certificate-frame .footer{
+    margin-top:4px!important;
+  }
+  /* Nunca imprimir botões, setas ou controles nativos das caixas de edição */
+  .sheet:nth-child(2) input,
+  .sheet:nth-child(2) select,
+  .sheet:nth-child(2) textarea{
+    appearance:none!important;
+    -webkit-appearance:none!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    resize:none!important;
+  }
+  .sheet:nth-child(2) select::-ms-expand{display:none!important}
+  .sheet:nth-child(2) textarea::-webkit-resizer{display:none!important}
+}
 @page{size:A4 portrait;margin:9mm}@media print{body{background:#fff}.app,.no-print{display:none!important}.sheet{box-shadow:none;margin:0;max-width:none;padding:0;break-after:page;page-break-after:always}.sheet:last-child{break-after:auto;page-break-after:auto}.sheet input,.sheet textarea{color:#000}.records td textarea{height:auto!important;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere;resize:none}.records td input{white-space:normal}.sheet{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 @media(max-width:750px){.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sheet{overflow-x:auto;padding:6mm}.curr{font-size:6pt}.curr th:first-child,.curr td:first-child{width:28%}}
 
-/* Atualizações do modelo Regular aplicadas ao EJA */
-.school-select-row{display:flex;gap:7px;align-items:stretch;flex-wrap:wrap}
-.school-select-row select{flex:1 1 250px;min-width:0}
-.school-add-btn,.school-delete-btn{font-size:10px!important;font-weight:700;white-space:nowrap;padding:9px 11px!important}
-.school-add-btn{background:#174f86!important;color:#fff!important;border:0!important;border-radius:5px!important}
-.school-delete-btn{background:#b4232b!important;color:#fff!important;border:0!important;border-radius:5px!important}
-.school-admin{display:grid;grid-template-columns:minmax(220px,2fr) minmax(150px,1fr);gap:12px;padding:14px;margin:12px 0;border:1px solid #b7c6d8;border-radius:8px;background:#f5f8fc}
-.school-admin[hidden]{display:none!important}.school-admin .admin-actions{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.school-admin-note{grid-column:1/-1;margin:0;font-size:12px;color:#475569}
-.curr td.subject-name{font-weight:600;text-align:left;padding-left:4px;cursor:text}.curr td.subject-name:focus{outline:1px solid #4385d1;background:#eef6ff}
-.curr .subject-cell{display:flex;align-items:center;gap:3px}
-.curr .subject-label{flex:1;min-width:0;outline:none}
-.curr .delete-subject{flex:0 0 auto;border:0;border-radius:3px;background:#b42318;color:#fff;font:bold 9px Arial;padding:2px 4px;cursor:pointer}
-@media print{.curr .delete-subject{display:none!important}.curr .subject-cell{display:block}.curr .subject-label{display:block}}
-@media print{.school-admin,.school-add-btn,.school-delete-btn{display:none!important}.records td textarea{height:auto!important;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere;resize:none}.records td input{white-space:normal}.sheet{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
-@media(max-width:650px){.school-admin{grid-template-columns:1fr}}
+/* V5: restaurar proporções legíveis e distribuir o conteúdo verticalmente na impressão */
 @media print {
-  .sheet:nth-child(2) .records th,.sheet:nth-child(2) .records td{padding:3px 4px!important;vertical-align:middle!important}
-  .sheet:nth-child(2) .records td textarea{font-size:7.5pt!important;line-height:1.12!important;padding:1px 2px!important}
-  .sheet:nth-child(2) .criteria{font-size:7.3pt!important;line-height:1.12!important}
-  .sheet:nth-child(2) .section-title{margin-top:10px!important;margin-bottom:5px!important}
-  .sheet:nth-child(2) .obs-title{margin-top:10px!important;padding:4px 7px!important}
-  .sheet:nth-child(2) .obs{min-height:38px!important;padding:7px 9px!important;line-height:1.2!important}
-  .sheet:nth-child(2) .certificate-frame{margin-top:28mm!important;padding:11px 10px 8px!important;outline-offset:2px!important;break-inside:avoid!important;page-break-inside:avoid!important}
-  .sheet:nth-child(2) .certificate p{margin:6px 0!important;line-height:1.2!important}
-  .sheet:nth-child(2) #pCertStudent{font-size:9pt!important;line-height:1.2!important;margin:5px 0!important}
-  .sheet:nth-child(2) .certificate-frame .signature{margin:20px 10px 8px!important;gap:20px!important}
-  .sheet:nth-child(2) .certificate-frame .footer{font-size:7.5pt!important;margin-top:6px!important;line-height:1.2!important}
+  .sheet:nth-child(2) { font-size: 9pt !important; }
+  .sheet:nth-child(2) .records th,
+  .sheet:nth-child(2) .records td { padding: 3px 4px !important; line-height: 1.15 !important; vertical-align: middle !important; }
+  .sheet:nth-child(2) .records td input,
+  .sheet:nth-child(2) .records td select,
+  .sheet:nth-child(2) .records td textarea {
+    font: 7.5pt Arial, Helvetica, sans-serif !important; line-height: 1.15 !important;
+    padding: 1px 0 !important; height: auto !important; min-height: 0 !important;
+    overflow: hidden !important; resize: none !important; appearance: none !important;
+    -webkit-appearance: none !important; box-shadow: none !important; outline: 0 !important;
+  }
+  .sheet:nth-child(2) .records td textarea::-webkit-resizer { display: none !important; }
+  .sheet:nth-child(2) .section-title[style*="margin-top:18px"] {
+    margin-top: 12px !important; margin-bottom: 10px !important;
+  }
+  .sheet:nth-child(2) .criteria { font-size: 7.7pt !important; line-height: 1.2 !important; }
+  .sheet:nth-child(2) .criteria br+br { line-height: 1.2 !important; }
+  .sheet:nth-child(2) .obs-title { margin-top: 14px !important; padding: 5px 8px !important; }
+  .sheet:nth-child(2) .obs { min-height: 38px !important; padding: 7px 9px !important; line-height: 1.2 !important; }
+  .sheet:nth-child(2) .certificate-frame {
+    margin-top: 10px !important; padding: 11px 10px 8px !important;
+    outline-offset: 2px !important; break-inside: avoid !important; page-break-inside: avoid !important;
+  }
+  .sheet:nth-child(2) .certificate p { margin: 6px 0 !important; line-height: 1.2 !important; }
+  .sheet:nth-child(2) #pCertStudent { font-size: 9pt !important; line-height: 1.2 !important; margin: 5px 0 !important; }
+  .sheet:nth-child(2) .certificate-frame .signature { margin: 20px 10px 8px !important; gap: 20px !important; }
+  .sheet:nth-child(2) .certificate-frame .footer { font-size: 7.5pt !important; margin-top: 6px !important; line-height: 1.2 !important; }
+}
+
+
+/* V6: distribuir a segunda página até perto do rodapé, mantendo uma folga visual */
+@media print {
+  .sheet:nth-child(2) .certificate-frame {
+    margin-top: 28mm !important;
+  }
 }
 </style></head><body><div class="app">
-<div class="panel"><h1>Gerador de Histórico Escolar — EJA</h1><p>Prefeitura Municipal de Anadia · modelo EJA 1º e 2º Segmento, com 9 períodos. Arquivo local, sem banco de dados e sem servidor. Preencha os dados e use “Imprimir / Salvar em PDF”.</p>
+<div class="panel"><h1>Gerador de Histórico Escolar</h1><p>Prefeitura Municipal de Anadia · arquivo local, sem banco de dados e sem servidor. Preencha os dados e use “Imprimir / Salvar em PDF”.</p>
 <div class="formgrid">
 <label class="field wide">Escola<div class="school-select-row"><select id="school" aria-label="Selecionar escola"></select><button type="button" class="school-add-btn no-print" onclick="toggleSchoolAdmin(true)">+ ADICIONAR ESCOLA</button><button type="button" class="school-delete-btn no-print" onclick="deleteAddedSchool()">EXCLUIR ESCOLA</button></div></label><label class="field">Código INEP<input id="inep" readonly></label><label class="field">Telefone da escola<input id="phone" placeholder="(82) ..."></label>
 <label class="field full">Endereço da escola<input id="address" placeholder="Endereço completo da escola"></label><label class="field wide">E-mail da escola<input id="email" placeholder="escola@..."></label>
-<label class="field wide">Nome completo do aluno<input id="student" placeholder="Nome do aluno"></label><label class="field">Sexo<select id="sex"><option value="">Selecione</option><option>MASCULINO</option><option>FEMININO</option></select></label><label class="field">CPF do aluno<input id="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14"></label><label class="field">Data de nascimento<input id="birth" placeholder="DD/MM/AAAA"></label>
+<label class="field wide">Nome completo do aluno<input id="student" placeholder="Nome do aluno"></label><label class="field">Sexo<select id="sex"><option value="">Selecione</option><option>MASCULINO</option><option>FEMININO</option></select></label><label class="field">CPF do aluno<input id="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14"></label><label class="field">Data de nascimento<input id="birth" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" autocomplete="bday"></label>
 <label class="field">Naturalidade<input id="natural" value="Anadia"></label><label class="field">Estado<input id="state" value="AL"></label><label class="field">Nacionalidade<input id="nationality" value="BRASILEIRO(A)"></label><label class="field">Nome da mãe<input id="mother"></label><label class="field">Nome do pai<input id="father"></label>
-<label class="field">Data do documento<input id="docdate" placeholder="Anadia-AL, ..."></label><label class="field">Ano letivo de conclusão (certificado)<input id="conclusion" placeholder="Ex.: 2026"></label><label class="field wide">Texto do certificado<input id="certtext" value="concluiu, com aproveitamento, o 9º Período da EJA, tendo cumprido os requisitos curriculares e as exigências legais estabelecidas, no ano letivo de"></label>
+<label class="field">Data do documento<input id="docdate" placeholder="Anadia-AL, ..."></label><label class="field">Ano de conclusão (certificado)<input id="conclusion" placeholder="Ex.: 2026"></label><label class="field wide">Texto do certificado<input id="certtext" value="concluiu, com aproveitamento, o 9º ano do Ensino Fundamental, tendo cumprido os requisitos curriculares e as exigências legais estabelecidas, no ano letivo de"></label>
 <label class="field">Secretário(a) escolar<input id="secretary"></label><label class="field">Registro/Portaria do(a) secretário(a)<input id="secretaryreg"></label><label class="field">Gestor(a)/Vice-gestor(a)<input id="manager"></label><label class="field">Registro/Portaria do(a) gestor(a)<input id="managerreg"></label>
 </div>
 <div id="schoolAdmin" class="school-admin no-print" hidden>
   <label class="field">Nome da nova escola<input id="newSchoolName" maxlength="160" placeholder="Digite o nome completo da escola"></label>
   <label class="field">Código INEP<input id="newSchoolInep" inputmode="numeric" maxlength="8" placeholder="8 dígitos"></label>
   <div class="admin-actions"><button type="button" onclick="addSchool()">Salvar escola</button><button type="button" class="secondary" onclick="toggleSchoolAdmin(false)">Cancelar</button></div>
-  <p class="school-admin-note">As escolas adicionadas ficam salvas neste navegador. Confira o nome e o código INEP oficial antes de cadastrar.</p>
-</div><div class="hint">As células de nota/conceito (N/C) e carga horária (CH) são editáveis. A matriz apresenta o EJA 1º Segmento (1º ao 5º período) e o EJA 2º Segmento (6º ao 9º período), conforme o modelo fornecido.</div><div class="actions"><button onclick="saveRecord()">Salvar preenchimento</button><button class="secondary" onclick="document.getElementById('openRecordFile').click()">Abrir preenchimento</button><button onclick="window.print()">Salvar como PDF / Imprimir</button><button class="secondary" onclick="clearStudent()">Limpar dados do aluno</button><button class="secondary" onclick="fillExample()">Preencher exemplo</button><input type="file" id="openRecordFile" accept=".json,application/json" hidden onchange="openRecord(event)"></div></div></div>
+  <p class="school-admin-note">A escola adicionada ficará disponível nesta instalação do gerador neste navegador. Informe o código INEP oficial da unidade.</p>
+</div>
+<div class="hint">Todas as células de nota/conceito (N/C) e carga horária (CH) são editáveis em todos os componentes e anos. Cargas horárias sem valor inicial ficam em branco para preenchimento. A divisão entre Fundamental I (1º ao 5º) e Fundamental II (6º ao 9º) segue o modelo original.</div><div class="actions"><button onclick="saveRecord()">Salvar preenchimento</button><button class="secondary" onclick="document.getElementById('openRecordFile').click()">Abrir preenchimento</button><button onclick="window.print()">Salvar como PDF / Imprimir</button><button class="secondary" onclick="clearStudent()">Limpar dados do aluno</button><button class="secondary" onclick="fillExample()">Preencher exemplo</button><input type="file" id="openRecordFile" accept=".json,application/json" hidden onchange="openRecord(event)"></div></div></div>
 <div id="paper">
 <section class="sheet"><header class="schoolhead"><img class="head-logo head-logo-left" src="imagens/Brasao_al.png" alt="Brasão de Alagoas"><div class="schoolhead-text"><p>REPÚBLICA FEDERATIVA DO BRASIL</p><p>PREFEITURA MUNICIPAL DE ANADIA</p><p><b>SECRETARIA MUNICIPAL DE EDUCAÇÃO — SEMED</b></p><h3 id="pSchool">ESCOLA MUNICIPAL</h3><p>Código/INEP: <b id="pInep"></b></p><p>TELEFONE: <span id="pPhone"></span> · E-MAIL: <span id="pEmail"></span></p></div><img class="head-logo head-logo-right" src="imagens/Anadia.png" alt="Brasão do Município de Anadia"></header>
-<div class="doc-title">HISTÓRICO ESCOLAR – EJA 1º E 2º SEGMENTO</div>
+<div class="doc-title">HISTÓRICO ESCOLAR – ANOS INICIAIS E FINAIS DO ENSINO FUNDAMENTAL</div>
 <table class="info"><tr><td colspan="2">Nome do Aluno: <b id="pStudent"></b></td><td>Sexo: <b id="pSex"></b></td><td>CPF: <b id="pCpf"></b></td></tr><tr><td>Data de Nascimento: <b id="pBirth"></b></td><td>Naturalidade: <b id="pNatural">Anadia</b></td><td>Estado: <b id="pState">AL</b></td><td>Nacionalidade: <b id="pNationality">BRASILEIRO(A)</b></td></tr><tr><td rowspan="2" style="text-align:center;font-weight:bold">Filiação</td><td colspan="3">Mãe: <b id="pMother"></b></td></tr><tr><td colspan="3">Pai: <b id="pFather"></b></td></tr></table>
 <table class="curr" id="curriculum"></table>
 <div class="legal"><b>Fundamento Legal:</b> Lei Federal 9394/96, artigos 32, 33 e 34; Lei Federal 11.274/2006; Resolução CNE/CEB nº 07/2010.<br><b>Legenda:</b> C – Conceito · N – Nota · CH – Carga Horária<br>Este documento não pode conter emendas ou rasuras.</div><p style="text-align:center;margin-top:12px" id="pDate"></p><div class="signature"><div>SECRETÁRIO(A) ESCOLAR<br>Nome: <span id="pSecretary"></span><br>REGISTRO OU PORTARIA N.º: <span id="pSecretaryReg"></span></div><div>GESTOR(A) ESCOLAR OU VICE-GESTOR(A) ESCOLAR<br>Nome: <span id="pManager"></span><br>REGISTRO OU PORTARIA N.º: <span id="pManagerReg"></span></div></div></section>
 <section class="sheet pagebreak"><div class="section-title">REGISTROS COMPLEMENTARES</div><table class="info records"><colgroup><col style="width:19%"><col style="width:10%"><col style="width:39%"><col style="width:22%"><col style="width:10%"></colgroup><thead><tr><th contenteditable="true" spellcheck="false" aria-label="Editar título da coluna">CICLO/ANO / SÉRIE</th><th>ANO</th><th>UNIDADE ESCOLAR</th><th>MUNICÍPIO</th><th>UF</th></tr></thead><tbody id="records"></tbody></table>
 <div class="section-title" style="margin-top:18px">CRITÉRIOS PARA PROMOÇÃO</div><div class="criteria"><b>Ensino Fundamental de 08 anos até 2009:</b><br>De 1ª à 8ª série por componente curricular igual ou superior a 6,0 (seis).<br><br><b>Ensino Fundamental em 2010:</b><br>1º ano: haverá progressão continuada, não ocorrendo a retenção do educando (a não ser por infrequência acima de 25% do total da carga horária anual); 2ª a 4ª série – média global igual ou superior a 50 pontos; 5ª a 8ª série – média por componente curricular igual ou superior a 50 pontos.<br><br><b>Ensino Fundamental de 09 anos de 2011 a 2018:</b><br>No 1º, 2º e 4º ano: haverá progressão continuada, não ocorrendo a retenção do educando (a não ser por infrequência acima de 25% do total da carga horária anual); no 3º e 5º ano: média global igual ou superior a 50 pontos; do 6º ao 9º ano: média por componente curricular igual ou superior a 50 pontos.<br><br><b>Ensino Fundamental de 09 anos a partir de 2019:</b><br>O processo de obtenção dos resultados dar-se-á bimestralmente, em 04 (quatro) bimestres para etapas organizadas em séries anuais ou em 02 (dois) bimestres para etapas organizadas em períodos semestrais. O registro do desempenho ocorrerá bimestralmente, de forma cumulativa, pelo somatório dos pontos obtidos nos instrumentos avaliativos com escala de 0 (zero) a 10 (dez) pontos. No 1º, 2º e 4º ano: média por componente curricular igual ou superior a 24 pontos, não ocorrendo retenção (salvo infrequência acima de 25% da carga horária anual). No 3º e 5º ano: média por componente curricular igual ou superior a 6,0 (seis) pontos. Do 6º ao 9º ano: média por componente curricular igual ou superior a 6,0 (seis) pontos.<br><br><b>Assiduidade exigida:</b> frequência mínima de 75% da carga horária anual.</div>
 <div class="section-title obs-title" contenteditable="true" style="margin-top:16px">OBSERVAÇÕES</div><div class="criteria obs" contenteditable="true" spellcheck="false">A prática da Educação Física é facultativa ao estudante, conforme o art. 26, § 3º, da Lei nº 9.394/1996 (LDB).</div>
-<div class="certificate-frame"><div class="certificate"><span class="cert-heading">CERTIFICADO</span><br><p style="font-weight:normal">CERTIFICAMOS, nos termos do Inciso VII, Artigo 24 da Lei Federal 9394/96, que o(a) aluno(a)</p><p style="text-decoration:underline" id="pCertStudent"></p><p style="font-weight:normal"><span id="pCertText">concluiu, com aproveitamento, o 9º Período da EJA, tendo cumprido os requisitos curriculares e as exigências legais estabelecidas, no ano letivo de</span> <span id="pConclusion"></span>.</p></div><div class="signature"><div>SECRETÁRIO(A) ESCOLAR<br>Nome: <span id="pSecretary2"></span><br>REGISTRO OU PORTARIA N.º: <span id="pSecretaryReg2"></span></div><div>GESTOR(A) ESCOLAR OU VICE-GESTOR(A) ESCOLAR<br>Nome: <span id="pManager2"></span><br>REGISTRO OU PORTARIA N.º: <span id="pManagerReg2"></span></div></div><div class="footer">Endereço: <span id="pAddress"></span><br>Anadia-Alagoas · Telefone: <span id="pPhone2"></span> · E-mail: <span id="pEmail2"></span></div></div></section>
+<div class="certificate-frame"><div class="certificate"><span class="cert-heading">CERTIFICADO</span><br><p style="font-weight:normal">CERTIFICAMOS, nos termos do Inciso VII, Artigo 24 da Lei Federal 9394/96, que o(a) aluno(a)</p><p style="text-decoration:underline" id="pCertStudent"></p><p style="font-weight:normal"><span id="pCertText">concluiu, com aproveitamento, o 9º ano do Ensino Fundamental, tendo cumprido os requisitos curriculares e as exigências legais estabelecidas, no ano letivo de</span> <span id="pConclusion"></span>.</p></div><div class="signature"><div>SECRETÁRIO(A) ESCOLAR<br>Nome: <span id="pSecretary2"></span><br>REGISTRO OU PORTARIA N.º: <span id="pSecretaryReg2"></span></div><div>GESTOR(A) ESCOLAR OU VICE-GESTOR(A) ESCOLAR<br>Nome: <span id="pManager2"></span><br>REGISTRO OU PORTARIA N.º: <span id="pManagerReg2"></span></div></div><div class="footer">Endereço: <span id="pAddress"></span><br>Anadia-Alagoas · Telefone: <span id="pPhone2"></span> · E-mail: <span id="pEmail2"></span></div></div></section>
 </div>
 <script>
 const schools=[['CENTRO EDUCACIONAL INFANTIL ESTEVAO DA ROCHA LIMA','27055787'],['CENTRO MUNICIPAL DE EDUCACAO INFANTIL OZANA CAVALCANTE','27230279'],['CENTRO MUNICIPAL DE EDUCACAO INFANTIL RITA BARROS DAMASO','27230260'],['ESCOLA MUNICIPAL CICERO DA ROCHA SOBRINHO','27041409'],['ESCOLA MUNICIPAL DE EDUCACAO INFANTIL DR LUIZ FERREIRA DE SOUZA','27055191'],['ESCOLA MUNICIPAL DE ENS FUND NOSSA SENHORA DA PIEDADE','27048691'],['ESCOLA MUNICIPAL DE ENSINO FUNDAMENTAL IMACULADA CONCEICAO','27219720'],['ESCOLA MUNICIPAL DR FRANCISCO MELLO','27041417'],['ESCOLA MUNICIPAL DR GERALDO TENORIO SILVEIRA','27041352'],['ESCOLA MUNICIPAL DR ULISSES BOTELHO','27041514'],['ESCOLA MUNICIPAL ED INFANTIL GOV DIVALDO SURUAGY','27041476'],['ESCOLA MUNICIPAL ED INFANTIL MARLENE PEDROSA','27041549'],['ESCOLA MUNICIPAL JOSE TENORIO DE ALBUQUERQUE LINS','27041522'],['ESCOLA MUNICIPAL LUIZA DE OLIVEIRA SURUAGY','27041492'],['ESCOLA MUNICIPAL PE JACKSON DO NASCIMENTO','27041360'],['ESCOLA MUNICIPAL PROFESSOR JOSE MEDEIROS','27041387']];
@@ -70,12 +169,20 @@ renderSchools(14);
 function toggleSchoolAdmin(show){const box=document.getElementById('schoolAdmin');box.hidden=!show;if(show){document.getElementById('newSchoolName').focus();}}
 function deleteAddedSchool(){
  const selectedIndex=Number(sel.value);
- if(!Number.isInteger(selectedIndex)||selectedIndex<16){alert('Selecione uma escola adicionada manualmente. As escolas originais da lista não podem ser excluídas por este botão.');return;}
+ if(!Number.isInteger(selectedIndex)||selectedIndex<16){
+  alert('Selecione primeiro uma escola que foi adicionada manualmente. As escolas originais da lista não podem ser excluídas por este botão.');
+  return;
+ }
  const schoolName=schools[selectedIndex][0];
- if(!confirm('Deseja excluir a escola adicionada abaixo?\n\n'+schoolName+'\n\nEssa ação removerá a escola da lista salva neste navegador.'))return;
+ if(!confirm('Deseja excluir a escola adicionada abaixo?\n\n'+schoolName+'\n\nEssa ação removerá a escola da lista salva neste navegador.')) return;
  schools.splice(selectedIndex,1);
- try{localStorage.setItem(SCHOOL_STORAGE_KEY,JSON.stringify(schools.slice(16)));}catch(e){alert('Não foi possível atualizar a lista salva no navegador.');}
- renderSchools(14);update();document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);resizeSchoolNames();alert('Escola excluída da lista de escolas adicionadas.');
+ try{localStorage.setItem(SCHOOL_STORAGE_KEY,JSON.stringify(schools.slice(16)));}
+ catch(e){alert('Não foi possível atualizar a lista salva no navegador. A escola foi removida apenas desta sessão.');}
+ renderSchools(14);
+ update();
+ document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);
+ if(typeof resizeSchoolNames==='function')resizeSchoolNames();
+ alert('Escola excluída da lista de escolas adicionadas.');
 }
 function addSchool(){
  const name=document.getElementById('newSchoolName').value.trim().replace(/\s+/g,' ');
@@ -83,70 +190,57 @@ function addSchool(){
  if(!name){alert('Digite o nome completo da escola.');document.getElementById('newSchoolName').focus();return;}
  if(!/^\d{8}$/.test(code)){alert('Informe o código INEP oficial com 8 dígitos.');document.getElementById('newSchoolInep').focus();return;}
  const existing=schools.findIndex(s=>s[0].toLocaleLowerCase()===name.toLocaleLowerCase());
- if(existing>=0){if(schools[existing][1]!==code){alert('Essa escola já existe na lista com outro código INEP. Confira os dados.');return;}renderSchools(existing);toggleSchoolAdmin(false);update();return;}
- if(schools.some(s=>s[1]===code)){alert('Esse código INEP já está associado a outra escola da lista. Confira os dados.');return;}
- schools.push([name,code]);try{localStorage.setItem(SCHOOL_STORAGE_KEY,JSON.stringify(schools.slice(16)));}catch(e){alert('A escola foi adicionada nesta sessão, mas não foi possível salvá-la neste navegador.');}
- renderSchools(schools.length-1);document.getElementById('newSchoolName').value='';document.getElementById('newSchoolInep').value='';toggleSchoolAdmin(false);document.querySelectorAll('.recschool').forEach(x=>x.value=name);update();alert('Escola adicionada e selecionada com sucesso.');
+ if(existing>=0){if(schools[existing][1]!==code){alert('Essa escola já existe na lista com outro código INEP. Confira os dados antes de continuar.');return;}renderSchools(existing);toggleSchoolAdmin(false);update();return;}
+ if(schools.some(s=>s[1]===code)){alert('Esse código INEP já está associado a outra escola da lista. Confira o código informado.');return;}
+ schools.push([name.toLocaleUpperCase('pt-BR'),code]);
+ try{localStorage.setItem(SCHOOL_STORAGE_KEY,JSON.stringify(schools.slice(16)));}catch(e){alert('A escola foi adicionada nesta sessão, mas o navegador não permitiu guardá-la para próximas visitas.');}
+ renderSchools(schools.length-1);document.getElementById('newSchoolName').value='';document.getElementById('newSchoolInep').value='';toggleSchoolAdmin(false);update();
+ document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);resizeSchoolNames();
 }
-
-const subjects=[
-['LÍNGUA PORTUGUESA',[160,80,80,80,80,100,100,100,100]],
-['ARTE',[40,20,20,20,20,20,20,20,20]],
-['EDUCAÇÃO FÍSICA*',[80,40,40,40,40,40,40,40,40]],
-['MATEMÁTICA',[120,60,60,60,60,100,100,100,100]],
-['CIÊNCIAS',[80,40,40,40,40,40,40,40,40]],
-['HISTÓRIA',[40,20,20,20,20,40,40,40,40]],
-['GEOGRAFIA',[40,20,20,20,20,40,40,40,40]],
-['ENSINO RELIGIOSO',[40,20,20,20,20,20,20,20,20]],
-['CULTURA ALAGOANA',[40,20,20,20,20,0,0,0,0]],
-['L. E. M. INGLÊS',[0,0,0,0,0,20,20,20,20]]
-];
+const subjects=[['Língua Portuguesa',[240,240,240,240,240,240,240,240,240]],['Língua Inglesa',[80,80,80,80,80,80,80,80,80]],['Arte',[80,80,80,80,80,80,80,80,80]],['Educação Física*',[80,80,80,80,80,80,80,80,80]],['Matemática',[240,240,240,240,240,240,240,240,240]],['Ciências',[80,80,80,80,80,80,80,80,80]],['História',[40,40,40,40,40,80,80,80,80]],['Geografia',[40,40,40,40,40,80,80,80,80]],['Territórios, Diversidades e Diálogos Religiosos*',[80,80,80,80,80,0,0,0,0]],['Mediação de Leitura',[80,80,80,80,80,0,0,0,0]],['Mediação de Matemática',[80,80,80,80,80,0,0,0,0]],['Mediação de Ciências da Natureza',[80,80,80,80,80,0,0,0,0]],['Oferta Eletiva de Artes',[80,80,80,80,80,80,80,80,80]],['Oferta Eletiva de Ed. Física',[80,80,80,80,80,0,0,0,0]],['Oferta Eletiva de Ciências da Natureza',[80,80,80,80,80,80,80,80,80]],['PrOTurma',[80,80,80,80,80,80,80,80,80]],['Projeto Integrador',[80,80,80,80,80,80,80,80,80]],['Oficinas de Língua Portuguesa**',[0,0,0,0,0,0,0,80,80]],['Oficinas de Matemática**',[0,0,0,0,0,0,0,80,80]],['Oferta Eletiva de Educação Física',[0,0,0,0,0,80,80,80,80]],['Territórios e Identidades',[0,0,0,0,0,80,80,80,80]],['Estudos Orientados',[0,0,0,0,0,80,80,80,80]],['Computação (componente a configurar conforme matriz da rede)',[0,0,0,0,0,0,0,0,0]]];
 function buildCurr(){
  let t=document.getElementById('curriculum');
- let h='<thead><tr class="group"><th rowspan="2">COMPONENTES CURRICULARES</th><th colspan="10">EJA 1º SEGMENTO</th><th colspan="8" class="fund2">EJA 2º SEGMENTO</th></tr><tr>';
- for(let y=1;y<=9;y++)h+=`<th colspan="2" class="${y===6?'fund2-start':''}">${y}º Período</th>`;
+ let h='<thead><tr class="group"><th rowspan="2">COMPONENTES CURRICULARES</th><th colspan="10">ENSINO FUNDAMENTAL I</th><th colspan="8" class="fund2">ENSINO FUNDAMENTAL II</th></tr><tr>';
+ for(let y=1;y<=9;y++)h+=`<th colspan="2" class="${y===6?'fund2-start':''}">${y}º Ano</th>`;
  h+='</tr><tr><th></th>';for(let y=1;y<=9;y++)h+=`<th class="${y===6?'fund2-start':''}">N/C</th><th>CH</th>`;h+='</tr></thead><tbody>';
- subjects.forEach((s,si)=>{h+=`<tr><td class="subject-name"><div class="subject-cell"><span class="subject-label" contenteditable="true" spellcheck="false" aria-label="Editar componente curricular">${s[0]}</span><button type="button" class="delete-subject no-print" title="Excluir este componente curricular" aria-label="Excluir componente curricular" onclick="deleteCurricularRow(this)">×</button></div></td>`;s[1].forEach((ch,y)=>{let nclass=y===5?'fund2-start':'';
- h+=`<td class="${nclass}"><input type="text" aria-label="${s[0]} ${y+1}º período nota/conceito" title="Nota/conceito" data-sub="${si}" data-year="${y}" placeholder="N/C"></td><td><input class="ch-input" type="text" inputmode="numeric" autocomplete="off" aria-label="Carga horária ${s[0]} ${y+1}º período" data-ch-sub="${si}" data-ch-year="${y}" value="" placeholder="CH"></td>`
+ subjects.forEach((s,si)=>{h+=`<tr><td class="subject-name" contenteditable="true" spellcheck="false" aria-label="Editar componente curricular">${s[0]}</td>`;s[1].forEach((ch,y)=>{let nclass=y===5?'fund2-start':'';
+ h+=`<td class="${nclass}"><input type="text" aria-label="${s[0]} ${y+1}º ano nota/conceito" title="Nota/conceito" data-sub="${si}" data-year="${y}" placeholder="N/C"></td><td><input class="ch-input" type="text" inputmode="numeric" autocomplete="off" aria-label="Carga horária ${s[0]} ${y+1}º ano" data-ch-sub="${si}" data-ch-year="${y}" value="" placeholder="CH"></td>`
  });h+='</tr>'});
  h+='<tr><th class="total-ch">Total de Carga Horária</th>';for(let y=0;y<9;y++)h+=`<th colspan="2" class="total-ch ${y===5?'fund2-start':''}" id="totalYear${y}"></th>`;h+='</tr></tbody>';t.innerHTML=h;
  t.querySelectorAll('.ch-input').forEach(e=>e.addEventListener('input',updateTotals));updateTotals();
 }
-function deleteCurricularRow(button){
- const row=button.closest('tr');
- if(!row)return;
- const label=row.querySelector('.subject-label');
- const name=(label?.innerText||'componente curricular').trim();
- if(!confirm('Deseja excluir o componente curricular “'+name+'” e todos os campos de N/C e CH dessa linha?'))return;
- row.remove();
- updateTotals();
-}
 function updateTotals(){for(let y=0;y<9;y++){let total=0,hasValue=false;document.querySelectorAll(`[data-ch-year="${y}"]`).forEach(el=>{let value=el.value.trim();if(value!==''){let n=Number(value.replace(',','.'));if(Number.isFinite(n)){total+=n;hasValue=true}}});let out=document.getElementById('totalYear'+y);if(out)out.textContent=hasValue?total:'';}}
 
-buildCurr();const years=document.getElementById('records');for(let y=1;y<=9;y++){let tr=document.createElement('tr');tr.innerHTML=`<td><input class="cycle-label" value="${y}º Ano" aria-label="Período EJA ${y}"></td><td><input placeholder="Ano letivo"></td><td><textarea class="recschool" rows="1" aria-label="Nome completo da unidade escolar"></textarea></td><td><input value="ANADIA"></td><td><input value="AL"></td>`;years.appendChild(tr)}
+buildCurr();const years=document.getElementById('records');for(let y=1;y<=9;y++){let tr=document.createElement('tr');tr.innerHTML=`<td><input class="cycle-label" value="${y}º Ano" aria-label="Ciclo, ano ou série ${y}"></td><td><input placeholder="Ano letivo"></td><td><textarea class="recschool" rows="1" aria-label="Nome completo da unidade escolar"></textarea></td><td><input value="ANADIA"></td><td><input value="AL"></td>`;years.appendChild(tr)}
 function resizeSchoolNames(){document.querySelectorAll('.recschool').forEach(el=>{el.style.height='auto';el.style.height=Math.max(22,el.scrollHeight)+'px'})}
 document.getElementById('records').addEventListener('input',e=>{if(e.target.classList.contains('recschool'))resizeSchoolNames()});window.addEventListener('beforeprint',resizeSchoolNames);window.addEventListener('afterprint',resizeSchoolNames);resizeSchoolNames();
 const map={student:'pStudent',sex:'pSex',cpf:'pCpf',birth:'pBirth',natural:'pNatural',state:'pState',nationality:'pNationality',mother:'pMother',father:'pFather',docdate:'pDate',conclusion:'pConclusion',secretary:'pSecretary',secretaryreg:'pSecretaryReg',manager:'pManager',managerreg:'pManagerReg',address:'pAddress',phone:'pPhone',email:'pEmail',inep:'pInep'};
-function update(){let s=schools[+sel.value];document.getElementById('inep').value=s[1];document.getElementById('pSchool').textContent=s[0];document.getElementById('pInep').textContent=s[1];Object.entries(map).forEach(([id,pid])=>{let el=document.getElementById(id),out=document.getElementById(pid);if(el&&out)out.textContent=el.value});document.getElementById('pPhone2').textContent=document.getElementById('phone').value;document.getElementById('pEmail2').textContent=document.getElementById('email').value;document.getElementById('pCertStudent').textContent=document.getElementById('student').value;document.getElementById('pCertText').textContent=document.getElementById('certtext').value;['secretary','secretaryreg','manager','managerreg'].forEach((id,i)=>{let ids=['pSecretary2','pSecretaryReg2','pManager2','pManagerReg2'];document.getElementById(ids[i]).textContent=document.getElementById(id).value});document.querySelectorAll('.recschool').forEach(x=>{if(!x.value)x.value=s[0]});resizeSchoolNames()}
+function update(){let s=schools[+sel.value]||schools[14];document.getElementById('inep').value=s[1];document.getElementById('pSchool').textContent=s[0];document.getElementById('pInep').textContent=s[1];Object.entries(map).forEach(([id,pid])=>{let el=document.getElementById(id),out=document.getElementById(pid);if(el&&out)out.textContent=el.value});document.getElementById('pPhone2').textContent=document.getElementById('phone').value;document.getElementById('pEmail2').textContent=document.getElementById('email').value;document.getElementById('pCertStudent').textContent=document.getElementById('student').value;document.getElementById('pCertText').textContent=document.getElementById('certtext').value;['secretary','secretaryreg','manager','managerreg'].forEach((id,i)=>{let ids=['pSecretary2','pSecretaryReg2','pManager2','pManagerReg2'];document.getElementById(ids[i]).textContent=document.getElementById(id).value});document.querySelectorAll('.recschool').forEach(x=>{if(!x.value)x.value=s[0]});resizeSchoolNames()}
 const birthInput=document.getElementById('birth');
 function formatBirthInput(el){
  const oldValue=el.value, oldPos=el.selectionStart??oldValue.length;
  const digitsBefore=(oldValue.slice(0,oldPos).match(/[0-9]/g)||[]).length;
  const digits=oldValue.replace(/[^0-9]/g,'').slice(0,8);
  let formatted=digits;
- if(digits.length>4)formatted=digits.slice(0,2)+'/'+digits.slice(2,4)+'/'+digits.slice(4);
- else if(digits.length>2)formatted=digits.slice(0,2)+'/'+digits.slice(2);
+ if(digits.length>4) formatted=digits.slice(0,2)+'/'+digits.slice(2,4)+'/'+digits.slice(4);
+ else if(digits.length>2) formatted=digits.slice(0,2)+'/'+digits.slice(2);
  el.value=formatted;
- let pos=0,seen=0;while(pos<formatted.length&&seen<digitsBefore){if(/[0-9]/.test(formatted[pos]))seen++;pos++;}while(pos<formatted.length&&formatted[pos]==='/')pos++;
- el.setSelectionRange(pos,pos);update();
+ let pos=0, seen=0;
+ while(pos<formatted.length && seen<digitsBefore){if(/[0-9]/.test(formatted[pos]))seen++;pos++}
+ while(pos<formatted.length && formatted[pos]==='/')pos++;
+ el.setSelectionRange(pos,pos);
+ update();
 }
 birthInput.addEventListener('keydown',e=>{
- const el=e.target,pos=el.selectionStart,end=el.selectionEnd,value=el.value;
- if(e.key==='Backspace'&&pos===end&&pos>0&&value[pos-1]==='/'){e.preventDefault();const digits=value.replace(/\D/g,'');const digitPos=(value.slice(0,pos).match(/\d/g)||[]).length;const next=digits.slice(0,Math.max(0,digitPos-1))+digits.slice(digitPos);el.value=next;formatBirthInput(el);}
- else if(e.key==='Delete'&&pos===end&&value[pos]==='/'){e.preventDefault();const digits=value.replace(/\D/g,'');const digitPos=(value.slice(0,pos).match(/\d/g)||[]).length;el.value=digits.slice(0,digitPos)+digits.slice(digitPos+1);formatBirthInput(el);}
+ const el=e.target, pos=el.selectionStart, end=el.selectionEnd, value=el.value;
+ if(e.key==='Backspace' && pos===end && pos>0 && value[pos-1]==='/'){
+  e.preventDefault();const before=value.slice(0,pos-1),after=value.slice(pos);
+  el.value=before.slice(0,-1)+after;const p=pos-2;el.setSelectionRange(Math.max(0,p),Math.max(0,p));formatBirthInput(el);
+ } else if(e.key==='Delete' && pos===end && value[pos]==='/'){
+  e.preventDefault();el.value=value.slice(0,pos)+value.slice(pos+2);el.setSelectionRange(pos,pos);formatBirthInput(el);
+ }
 });
-birthInput.addEventListener('input',()=>formatBirthInput(birthInput));
-document.getElementById('cpf').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');e.target.value=v;update()});document.querySelectorAll('.app input,.app select').forEach(e=>e.addEventListener('input',update));document.getElementById('curriculum').addEventListener('input',updateTotals);sel.addEventListener('change',()=>{document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);update()});document.getElementById('docdate').value='Anadia-AL, ____ de ______________ de ______';update();
+birthInput.addEventListener('input',e=>formatBirthInput(e.target));document.getElementById('cpf').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');e.target.value=v;update()});document.querySelectorAll('.app input,.app select').forEach(e=>e.addEventListener('input',update));document.getElementById('curriculum').addEventListener('input',updateTotals);sel.addEventListener('change',()=>{document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);update()});document.getElementById('docdate').value='Anadia-AL, ____ de ______________ de ______';update();
 function clearStudent(){['student','sex','cpf','birth','mother','father','conclusion','secretary','secretaryreg','manager','managerreg'].forEach(id=>document.getElementById(id).value='');document.querySelectorAll('#curriculum input').forEach(i=>i.value='');updateTotals();document.querySelectorAll('#records input').forEach((i,n)=>{if(i.classList.contains('cycle-label'))return;if(i.placeholder==='Ano letivo')i.value='';});document.querySelectorAll('.recschool').forEach(x=>{x.value=''});resizeSchoolNames();update()}
 function fillExample(){document.getElementById('student').value='NOME DO ALUNO';document.getElementById('sex').value='MASCULINO';document.getElementById('birth').value='01/01/2012';document.getElementById('conclusion').value='2026';update()}
 
@@ -154,10 +248,10 @@ function fillExample(){document.getElementById('student').value='NOME DO ALUNO';
 function getSaveableElements(){return Array.from(document.querySelectorAll('input,select,textarea,[contenteditable="true"]')).filter(el=>!['file','button','submit'].includes((el.type||'').toLowerCase()) && !el.closest('.actions') && !el.closest('.school-admin'));}
 async function saveRecord(){
  const elements=getSaveableElements();
- const payload={app:'HistoricoEscolarAnadia',version:1,model:'eja',savedAt:new Date().toISOString(),fields:elements.map((el,index)=>({index,tag:el.tagName,type:el.type||'',value:el.isContentEditable?el.innerHTML:el.value}))};
+ const payload={app:'HistoricoEscolarAnadia',version:1,model:'regular',savedAt:new Date().toISOString(),fields:elements.map((el,index)=>({index,tag:el.tagName,type:el.type||'',value:el.isContentEditable?el.innerHTML:el.value}))};
  const json=JSON.stringify(payload,null,2);
  const student=(document.getElementById('student')?.value||'historico_escolar').trim().replace(/[^a-z0-9_-]+/gi,'_').replace(/^_+|_+$/g,'')||'historico_escolar';
- const filename=student+'_eja_dados.json';
+ const filename=student+'_regular_dados.json';
  try{
   if(window.showSaveFilePicker){
    const handle=await window.showSaveFilePicker({suggestedName:filename,types:[{description:'Arquivo de preenchimento do histórico',accept:{'application/json':['.json']}}]});
@@ -180,7 +274,7 @@ function openRecord(event){
  const file=event.target.files&&event.target.files[0];if(!file)return;
  const reader=new FileReader();reader.onload=()=>{try{
   const payload=JSON.parse(reader.result);if(payload.app!=='HistoricoEscolarAnadia'||!Array.isArray(payload.fields))throw new Error('Arquivo inválido.');
-  if(payload.model!=='eja'){alert('Atenção: este arquivo foi salvo no modelo '+payload.model+'. Abra-o no modelo correspondente.');event.target.value='';return;}
+  if(payload.model!=='regular'){alert('Atenção: este arquivo foi salvo no modelo '+payload.model+'. Abra-o no modelo correspondente.');event.target.value='';return;}
   const elements=getSaveableElements();payload.fields.forEach(item=>{const el=elements[item.index];if(!el)return;if(el.isContentEditable)el.innerHTML=item.value;else el.value=item.value;});
   if(typeof update==='function')update();if(typeof updateTotals==='function')updateTotals();if(typeof resizeSchoolNames==='function')resizeSchoolNames();
   alert('Preenchimento aberto! Confira os dados, faça as alterações necessárias e salve novamente ou gere o PDF.');
