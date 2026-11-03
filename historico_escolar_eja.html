@@ -14,6 +14,19 @@
 .school-admin{display:grid;grid-template-columns:minmax(220px,2fr) minmax(150px,1fr);gap:12px;padding:14px;margin:12px 0;border:1px solid #b7c6d8;border-radius:8px;background:#f5f8fc}
 .school-admin[hidden]{display:none!important}.school-admin .admin-actions{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.school-admin-note{grid-column:1/-1;margin:0;font-size:12px;color:#475569}
 .curr td.subject-name{font-weight:600;text-align:left;padding-left:4px;cursor:text}.curr td.subject-name:focus{outline:1px solid #4385d1;background:#eef6ff}.curr tr.component-empty td:not(:first-child){position:relative}.curr tr.component-empty td:not(:first-child) input{visibility:hidden}.curr tr.component-empty td:not(:first-child)::after{content:"-";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;color:#333}.curr tr.component-empty td.subject-name{position:relative}.curr tr.component-empty td.subject-name::after{content:"-";position:absolute;left:4px;top:50%;transform:translateY(-50%);pointer-events:none;color:#111}.curr tr.component-empty td.subject-name:focus::after{display:none}
+/* Mantém a altura da linha vazia igual à das demais linhas da matriz */
+.curr tr.component-empty td{
+  height:18px!important;
+  min-height:18px!important;
+  padding-top:2px!important;
+  padding-bottom:2px!important;
+  line-height:1.1!important;
+  vertical-align:middle!important;
+}
+.curr tr.component-empty td:first-child{
+  width:28%!important;
+}
+
 @media print{.school-admin,.school-add-btn,.school-delete-btn{display:none!important}.records td textarea{height:auto!important;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere;resize:none}.records td input{white-space:normal}.sheet{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 @media(max-width:650px){.school-admin{grid-template-columns:1fr}}
 @media print {
@@ -112,6 +125,11 @@ function buildCurr(){
      const row=cell.closest('tr');
      const empty=cell.textContent.replace(/\u00a0/g,' ').trim()==='';
      row.classList.toggle('component-empty',empty);
+     // Ao sair de uma célula vazia, remove <br>/<div> que o navegador
+     // pode inserir no contenteditable e que aumentam a altura da linha.
+     if(empty && document.activeElement!==cell && cell.innerHTML.trim()!==''){
+       cell.innerHTML='';
+     }
    };
    cell.addEventListener('input',refresh);
    cell.addEventListener('blur',refresh);
