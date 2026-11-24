@@ -57,7 +57,7 @@
   <label class="field">Código INEP<input id="newSchoolInep" inputmode="numeric" maxlength="8" placeholder="8 dígitos"></label>
   <div class="admin-actions"><button type="button" onclick="addSchool()">Salvar escola</button><button type="button" class="secondary" onclick="toggleSchoolAdmin(false)">Cancelar</button></div>
   <p class="school-admin-note">As escolas adicionadas ficam salvas neste navegador. Confira o nome e o código INEP oficial antes de cadastrar.</p>
-</div><div class="hint">As células de nota/conceito (N/C) e carga horária (CH) são editáveis. A matriz apresenta o EJA 1º Segmento (1º ao 5º período) e o EJA 2º Segmento (6º ao 9º período), conforme o modelo fornecido.</div><div class="actions"><button onclick="saveRecord()">Salvar preenchimento</button><button class="secondary" onclick="document.getElementById('openRecordFile').click()">Abrir preenchimento</button><button onclick="window.print()">Salvar como PDF / Imprimir</button><button class="secondary" onclick="clearStudent()">Limpar dados do aluno</button><button class="secondary" onclick="fillExample()">Preencher exemplo</button><input type="file" id="openRecordFile" accept=".json,application/json" hidden onchange="openRecord(event)"></div></div></div>
+</div><div class="hint">As células de nota/conceito (N/C) e carga horária (CH) são editáveis. A matriz apresenta o EJA 1º Segmento (1º ao 5º período) e o EJA 2º Segmento (6º ao 9º período), conforme o modelo fornecido.</div><div class="actions"><button onclick="saveRecord()">Salvar preenchimento</button><button type="button" id="recordPrev" class="secondary" onclick="navigateRecord(-1)" aria-label="Registro anterior">&#8592;</button><span id="recordCount" style="align-self:center;font-size:12px" aria-live="polite"></span><button type="button" id="recordNext" class="secondary" onclick="navigateRecord(1)" aria-label="Próximo registro">&#8594;</button><button class="secondary" onclick="document.getElementById('openRecordFile').click()">Abrir preenchimento</button><button onclick="window.print()">Salvar como PDF / Imprimir</button><button class="secondary" onclick="clearStudent()">Limpar dados do aluno</button><button class="secondary" onclick="fillExample()">Preencher exemplo</button><input type="file" id="openRecordFile" accept=".json,application/json" hidden onchange="openRecord(event)"></div></div></div>
 <div id="paper">
 <section class="sheet"><header class="schoolhead"><img class="head-logo head-logo-left" src="imagens/Brasao_al.png" alt="Brasão de Alagoas"><div class="schoolhead-text"><p>REPÚBLICA FEDERATIVA DO BRASIL</p><p>PREFEITURA MUNICIPAL DE ANADIA</p><p><b>SECRETARIA MUNICIPAL DE EDUCAÇÃO — SEMED</b></p><h3 id="pSchool">ESCOLA MUNICIPAL</h3><p>Código/INEP: <b id="pInep"></b></p><p>TELEFONE: <span id="pPhone"></span> · E-MAIL: <span id="pEmail"></span></p></div><img class="head-logo head-logo-right" src="imagens/Anadia.png" alt="Brasão do Município de Anadia"></header>
 <div class="doc-title">HISTÓRICO ESCOLAR – EJA 1º E 2º SEGMENTO</div>
@@ -258,14 +258,49 @@ birthInput.addEventListener('keydown',e=>{
  }
 });
 birthInput.addEventListener('input',e=>formatBirthInput(e.target));document.getElementById('cpf').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');e.target.value=v;update()});document.querySelectorAll('.app input,.app select').forEach(e=>e.addEventListener('input',update));document.getElementById('curriculum').addEventListener('input',updateTotals);sel.addEventListener('change',()=>{fillSchoolDetails();document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);update()});document.getElementById('docdate').value='Anadia-AL, ____ de ______________ de ______';fillSchoolDetails();update();
-function clearStudent(){['student','sex','cpf','birth','mother','father','conclusion'].forEach(id=>document.getElementById(id).value='');document.querySelectorAll('#curriculum input').forEach(i=>i.value='');updateTotals();document.querySelectorAll('#records input').forEach((i,n)=>{if(i.classList.contains('cycle-label'))return;if(i.placeholder==='Ano letivo')i.value='';});document.querySelectorAll('.recschool').forEach(x=>{x.value=''});resizeSchoolNames();update()}
+function clearStudent(){recordIndex=-1;refreshRecordNav();['student','sex','cpf','birth','mother','father','conclusion'].forEach(id=>document.getElementById(id).value='');document.querySelectorAll('#curriculum input').forEach(i=>i.value='');updateTotals();document.querySelectorAll('#records input').forEach((i,n)=>{if(i.classList.contains('cycle-label'))return;if(i.placeholder==='Ano letivo')i.value='';});document.querySelectorAll('.recschool').forEach(x=>{x.value=''});resizeSchoolNames();update()}
 function fillExample(){document.getElementById('student').value='NOME DO ALUNO';document.getElementById('sex').value='MASCULINO';document.getElementById('birth').value='01/01/2012';document.getElementById('conclusion').value='2026';update()}
 
 // Salva todos os campos preenchidos em um arquivo JSON que poderá ser aberto depois.
 function getSaveableElements(){return Array.from(document.querySelectorAll('input,select,textarea,[contenteditable="true"]')).filter(el=>!['file','button','submit'].includes((el.type||'').toLowerCase()) && !el.closest('.actions') && !el.closest('.school-admin'));}
+
+const RECORD_KEY='HistoricoEscolarAnadia.registros.eja.v1';
+let recordsLocal=[], recordIndex=-1, recordBaseline=null;
+function recordSnapshot(){return JSON.stringify(getSaveableElements().map(el=>el.isContentEditable?el.innerHTML:el.value));}
+function refreshRecordNav(){
+ document.getElementById('recordCount').textContent=recordIndex<0?'Novo · '+recordsLocal.length+' salvo(s)':(recordIndex+1)+' de '+recordsLocal.length;
+ document.getElementById('recordPrev').disabled=!recordsLocal.length||recordIndex===0;
+ document.getElementById('recordNext').disabled=recordIndex<0||recordIndex>=recordsLocal.length-1;
+}
+function loadLocalRecords(){try{const data=JSON.parse(localStorage.getItem(RECORD_KEY)||'[]');if(Array.isArray(data))recordsLocal=data.filter(x=>x&&x.model==='eja'&&Array.isArray(x.fields));}catch(e){alert('Não foi possível ler os registros do navegador.');}recordBaseline=recordSnapshot();refreshRecordNav();}
+function saveLocalRecord(payload){
+ const cpf=document.getElementById('cpf').value.replace(/[^0-9]/g,'');
+ const student=document.getElementById('student').value.trim();
+ payload.localCpf=cpf;payload.localStudent=student;payload.localSchool=schools[+sel.value]?.[1]||'';
+ let index=recordIndex;
+ if(index>=0){const old=recordsLocal[index];if((cpf&&old.localCpf&&cpf!==old.localCpf)||student.toLocaleUpperCase()!==String(old.localStudent||'').toLocaleUpperCase())index=-1;}
+ if(index<0&&cpf.length===11)index=recordsLocal.findIndex(r=>r.localCpf===cpf&&r.localSchool===payload.localSchool);
+ const next=recordsLocal.slice();if(index<0){index=next.length;next.push(payload);}else next[index]=payload;
+ try{localStorage.setItem(RECORD_KEY,JSON.stringify(next));recordsLocal=next;recordIndex=index;recordBaseline=recordSnapshot();refreshRecordNav();return true;}catch(e){alert('Não foi possível salvar no navegador (armazenamento indisponível ou cheio). O arquivo JSON ainda poderá ser salvo.');return false;}
+}
+function navigateRecord(direction){
+ const target=recordIndex<0?recordsLocal.length-1:recordIndex+direction;
+ if(target<0||target>=recordsLocal.length)return;
+ if(recordSnapshot()!==recordBaseline&&!confirm('Existem alterações não salvas. Deseja navegar e descartá-las?'))return;
+ const payload=recordsLocal[target];const schoolIndex=schools.findIndex(s=>String(s[1])===String(payload.localSchool));
+ if(schoolIndex<0){alert('A escola deste registro não está mais cadastrada. Cadastre-a novamente antes de abrir.');return;}
+ const elements=getSaveableElements();payload.fields.forEach(item=>{const el=elements[item.index];if(!el)return;if(el.isContentEditable)el.innerHTML=item.value;else el.value=item.value;});
+ sel.value=String(schoolIndex);
+ document.querySelectorAll('.subject-name').forEach(el=>el.dispatchEvent(new Event('input')));
+ update();updateTotals();resizeSchoolNames();recordIndex=target;recordBaseline=recordSnapshot();refreshRecordNav();
+}
+loadLocalRecords();
+
 async function saveRecord(){
+ if(!document.getElementById("student").value.trim()){alert("Informe o nome do aluno antes de salvar.");return;}
  const elements=getSaveableElements();
  const payload={app:'HistoricoEscolarAnadia',version:1,model:'eja',savedAt:new Date().toISOString(),fields:elements.map((el,index)=>({index,tag:el.tagName,type:el.type||'',value:el.isContentEditable?el.innerHTML:el.value}))};
+ const localSaved=saveLocalRecord(payload);
  const json=JSON.stringify(payload,null,2);
  const student=(document.getElementById('student')?.value||'historico_escolar').trim().replace(/[^a-z0-9_-]+/gi,'_').replace(/^_+|_+$/g,'')||'historico_escolar';
  const filename=student+'_eja_dados.json';
@@ -275,7 +310,7 @@ async function saveRecord(){
    const writable=await handle.createWritable();
    await writable.write(new Blob([json],{type:'application/json;charset=utf-8'}));
    await writable.close();
-   alert('Preenchimento salvo no local escolhido! Para continuar depois, clique em “Abrir preenchimento” e selecione esse arquivo.');
+   alert(localSaved?'Preenchimento salvo no navegador e no arquivo JSON!':'Preenchimento salvo somente no arquivo JSON.');
    return;
   }
   const blob=new Blob([json],{type:'application/json;charset=utf-8'});
@@ -283,7 +318,7 @@ async function saveRecord(){
   a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   alert('Este navegador não permite escolher a pasta nesta tela. O arquivo foi enviado para a pasta padrão de downloads.');
  }catch(err){
-  if(err && err.name==='AbortError')return;
+  if(err && err.name==='AbortError'){if(localSaved)alert('Registro salvo no navegador. A exportação JSON foi cancelada.');return;}
   console.error(err);alert('Não foi possível salvar o preenchimento. Tente novamente.');
  }
 }
@@ -294,6 +329,7 @@ function openRecord(event){
   if(payload.model!=='eja'){alert('Atenção: este arquivo foi salvo no modelo '+payload.model+'. Abra-o no modelo correspondente.');event.target.value='';return;}
   const elements=getSaveableElements();payload.fields.forEach(item=>{const el=elements[item.index];if(!el)return;if(el.isContentEditable)el.innerHTML=item.value;else el.value=item.value;});
   if(typeof update==='function')update();if(typeof updateTotals==='function')updateTotals();if(typeof resizeSchoolNames==='function')resizeSchoolNames();
+  document.querySelectorAll('.subject-name').forEach(el=>el.dispatchEvent(new Event('input')));recordIndex=-1;recordBaseline=recordSnapshot();refreshRecordNav();
   alert('Preenchimento aberto! Confira os dados, faça as alterações necessárias e salve novamente ou gere o PDF.');
  }catch(err){alert('Não foi possível abrir esse arquivo. Selecione um arquivo JSON salvo por este gerador.');}finally{event.target.value='';}};reader.readAsText(file,'UTF-8');
 }
