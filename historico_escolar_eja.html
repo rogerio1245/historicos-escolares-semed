@@ -71,6 +71,95 @@
 </div>
 <script>
 const schools=[['CENTRO EDUCACIONAL INFANTIL ESTEVAO DA ROCHA LIMA','27055787'],['CENTRO MUNICIPAL DE EDUCACAO INFANTIL OZANA CAVALCANTE','27230279'],['CENTRO MUNICIPAL DE EDUCACAO INFANTIL RITA BARROS DAMASO','27230260'],['ESCOLA MUNICIPAL CICERO DA ROCHA SOBRINHO','27041409'],['ESCOLA MUNICIPAL DE EDUCACAO INFANTIL DR LUIZ FERREIRA DE SOUZA','27055191'],['ESCOLA MUNICIPAL DE ENS FUND NOSSA SENHORA DA PIEDADE','27048691'],['ESCOLA MUNICIPAL DE ENSINO FUNDAMENTAL IMACULADA CONCEICAO','27219720'],['ESCOLA MUNICIPAL DR FRANCISCO MELLO','27041417'],['ESCOLA MUNICIPAL DR GERALDO TENORIO SILVEIRA','27041352'],['ESCOLA MUNICIPAL DR ULISSES BOTELHO','27041514'],['ESCOLA MUNICIPAL ED INFANTIL GOV DIVALDO SURUAGY','27041476'],['ESCOLA MUNICIPAL ED INFANTIL MARLENE PEDROSA','27041549'],['ESCOLA MUNICIPAL JOSE TENORIO DE ALBUQUERQUE LINS','27041522'],['ESCOLA MUNICIPAL LUIZA DE OLIVEIRA SURUAGY','27041492'],['ESCOLA MUNICIPAL PE JACKSON DO NASCIMENTO','27041360'],['ESCOLA MUNICIPAL PROFESSOR JOSE MEDEIROS','27041387']];
+
+const schoolDetails = {
+  "27055787": {
+    "address": "CONJUNTO FREI DAMIÃO, S/N, CHÃ DA MANGABEIRA",
+    "phone": "(82) 9 9801-5016",
+    "manager": "MARIA DA PIEDADE DA ROCHA BARROS SILVA"
+  },
+  "27230279": {
+    "address": "POVOADO TABULEIRO GRANDE, S/N, ZONA RURAL",
+    "phone": "(82) 9 9912-6788",
+    "manager": "IVONEIDE FERREIRA DOS SANTOS"
+  },
+  "27230260": {
+    "address": "AVENIDA VALDEMAR DE OLIVEIRA, S/N, CHÃ DA MANGABEIRA",
+    "phone": "(82) 9 9800-5654",
+    "manager": "MARIA DAS GRACAS DOS SANTOS DE OLIVEIRA"
+  },
+  "27041409": {
+    "address": "RUA ISAURO FAUSTINO BARBOSA, S/N, CHÃ DA MANGABEIRA",
+    "phone": "(82) 9 9985-8917",
+    "manager": "ELENEUSA FERREIRA DA SILVA"
+  },
+  "27055191": {
+    "address": "RUA DR QUINTELA CAVALCANTEE, S/N, CENTRO",
+    "phone": "(82) 9 9834-0293",
+    "manager": "ELISANGELA SOARES DE OMENA DOS SANTOS"
+  },
+  "27048691": {
+    "address": "RUA PROFESSOR NICODEMOS JOBIM, 51, CENTRO",
+    "phone": "(82) 9 9662-8540",
+    "manager": "ELIZABETE MESSIAS DE MACEDO COSTA"
+  },
+  "27219720": {
+    "address": "RUA JUVENAL CAETANO DE OLIVEIRA, 81, CENTRO",
+    "phone": "(82) 9 9641-4549",
+    "manager": "JOSEFA MARQUES DA ROCHA"
+  },
+  "27041417": {
+    "address": "POVOADO CHÃ DO BREJINHO, S/N, POVOADO",
+    "phone": "(82) 9 9692-2430",
+    "manager": "VALDIRA MARQUES MESSIAS"
+  },
+  "27041352": {
+    "address": "RUA DR QUINTELA CAVALCANTE, S/N, CENTRO",
+    "phone": "(82) 9 9638-6966",
+    "manager": "MARIA DA PIEDADE TORQUATO DOS SANTOS FERREIRA"
+  },
+  "27041514": {
+    "address": "AVENIDA VALDEMAR DE OLIVEIRA, S/N, CHÃ DA MANGABEIRA",
+    "phone": "(82) 9 9960-6080",
+    "manager": "VERA LUCIA OLIVEIRA SILVA CLUDINO"
+  },
+  "27041476": {
+    "address": "POVOADO BREJO NOVO, S/N, ZONA RURAL",
+    "phone": "(82) 9 9914-6010",
+    "manager": "ZENILDA LOPES DA SILVA"
+  },
+  "27041549": {
+    "address": "RUA ALTO DO PATRÍCIO, S/N, CENTRO",
+    "phone": "(82) 9 9909-8178",
+    "manager": "MARCIA CRISTINA ALMEIDA TELES VIEIRA"
+  },
+  "27041522": {
+    "address": "POVOADO DUAS ESTRADAS, S/N, ZONA RURAL",
+    "phone": "(82) 9 9601-0814",
+    "manager": "SANDRA FREITAS BEZERRA BRAGA"
+  },
+  "27041492": {
+    "address": "POVOADO TAPERA, S/N, ZONA RURAL",
+    "phone": "(82) 9 9654-4411",
+    "manager": "GERALDA MARQUES DA ROCHA E SILVA"
+  },
+  "27041360": {
+    "address": "POVOADO TABULEIRO GRANDE, S/N, ZONA RURAL",
+    "phone": "(82) 9 9655-5999",
+    "manager": "QUITERIA DE SOUZA SANTOS"
+  },
+  "27041387": {
+    "address": "RUA SENADOR RUI PALMEIRA, S/N, CENTRO",
+    "phone": "(82) 9 9959-4717",
+    "manager": "EDLA MARIA QUINTELA CAVALCANTE DA ROCHA"
+  }
+};
+function fillSchoolDetails(){
+ const school=schools[Number(sel.value)];
+ const details=schoolDetails[school?.[1]] || {};
+ for(const id of ["address","phone","manager"]) document.getElementById(id).value=details[id] || "";
+ for(const id of ["email","secretary","secretaryreg","managerreg"]) document.getElementById(id).value="";
+}
 const SCHOOL_STORAGE_KEY='sima_historico_escolas_adicionadas_v1';
 try{const savedSchools=JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY)||'[]');if(Array.isArray(savedSchools))savedSchools.forEach(s=>{if(Array.isArray(s)&&s.length>=2&&s[0]&&s[1]&&!schools.some(x=>x[0].toLocaleLowerCase()===String(s[0]).toLocaleLowerCase()))schools.push([String(s[0]),String(s[1])]);});}catch(e){console.warn('Não foi possível carregar escolas adicionais.',e)}
 const sel=document.getElementById('school');
@@ -84,7 +173,7 @@ function deleteAddedSchool(){
  if(!confirm('Deseja excluir a escola adicionada abaixo?\n\n'+schoolName+'\n\nEssa ação removerá a escola da lista salva neste navegador.'))return;
  schools.splice(selectedIndex,1);
  try{localStorage.setItem(SCHOOL_STORAGE_KEY,JSON.stringify(schools.slice(16)));}catch(e){alert('Não foi possível atualizar a lista salva no navegador.');}
- renderSchools(14);update();document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);resizeSchoolNames();alert('Escola excluída da lista de escolas adicionadas.');
+ renderSchools(14);fillSchoolDetails();update();document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);resizeSchoolNames();alert('Escola excluída da lista de escolas adicionadas.');
 }
 function addSchool(){
  const name=document.getElementById('newSchoolName').value.trim().replace(/\s+/g,' ');
@@ -92,10 +181,10 @@ function addSchool(){
  if(!name){alert('Digite o nome completo da escola.');document.getElementById('newSchoolName').focus();return;}
  if(!/^\d{8}$/.test(code)){alert('Informe o código INEP oficial com 8 dígitos.');document.getElementById('newSchoolInep').focus();return;}
  const existing=schools.findIndex(s=>s[0].toLocaleLowerCase()===name.toLocaleLowerCase());
- if(existing>=0){if(schools[existing][1]!==code){alert('Essa escola já existe na lista com outro código INEP. Confira os dados.');return;}renderSchools(existing);toggleSchoolAdmin(false);update();return;}
+ if(existing>=0){if(schools[existing][1]!==code){alert('Essa escola já existe na lista com outro código INEP. Confira os dados.');return;}renderSchools(existing);toggleSchoolAdmin(false);fillSchoolDetails();update();return;}
  if(schools.some(s=>s[1]===code)){alert('Esse código INEP já está associado a outra escola da lista. Confira os dados.');return;}
  schools.push([name,code]);try{localStorage.setItem(SCHOOL_STORAGE_KEY,JSON.stringify(schools.slice(16)));}catch(e){alert('A escola foi adicionada nesta sessão, mas não foi possível salvá-la neste navegador.');}
- renderSchools(schools.length-1);document.getElementById('newSchoolName').value='';document.getElementById('newSchoolInep').value='';toggleSchoolAdmin(false);document.querySelectorAll('.recschool').forEach(x=>x.value=name);update();alert('Escola adicionada e selecionada com sucesso.');
+ renderSchools(schools.length-1);fillSchoolDetails();document.getElementById('newSchoolName').value='';document.getElementById('newSchoolInep').value='';toggleSchoolAdmin(false);document.querySelectorAll('.recschool').forEach(x=>x.value=name);update();alert('Escola adicionada e selecionada com sucesso.');
 }
 
 const subjects=[
@@ -168,8 +257,8 @@ birthInput.addEventListener('keydown',e=>{
   e.preventDefault();el.value=value.slice(0,pos)+value.slice(pos+2);el.setSelectionRange(pos,pos);formatBirthInput(el);
  }
 });
-birthInput.addEventListener('input',e=>formatBirthInput(e.target));document.getElementById('cpf').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');e.target.value=v;update()});document.querySelectorAll('.app input,.app select').forEach(e=>e.addEventListener('input',update));document.getElementById('curriculum').addEventListener('input',updateTotals);sel.addEventListener('change',()=>{document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);update()});document.getElementById('docdate').value='Anadia-AL, ____ de ______________ de ______';update();
-function clearStudent(){['student','sex','cpf','birth','mother','father','conclusion','secretary','secretaryreg','manager','managerreg'].forEach(id=>document.getElementById(id).value='');document.querySelectorAll('#curriculum input').forEach(i=>i.value='');updateTotals();document.querySelectorAll('#records input').forEach((i,n)=>{if(i.classList.contains('cycle-label'))return;if(i.placeholder==='Ano letivo')i.value='';});document.querySelectorAll('.recschool').forEach(x=>{x.value=''});resizeSchoolNames();update()}
+birthInput.addEventListener('input',e=>formatBirthInput(e.target));document.getElementById('cpf').addEventListener('input',e=>{let v=e.target.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');e.target.value=v;update()});document.querySelectorAll('.app input,.app select').forEach(e=>e.addEventListener('input',update));document.getElementById('curriculum').addEventListener('input',updateTotals);sel.addEventListener('change',()=>{fillSchoolDetails();document.querySelectorAll('.recschool').forEach(x=>x.value=schools[+sel.value][0]);update()});document.getElementById('docdate').value='Anadia-AL, ____ de ______________ de ______';fillSchoolDetails();update();
+function clearStudent(){['student','sex','cpf','birth','mother','father','conclusion'].forEach(id=>document.getElementById(id).value='');document.querySelectorAll('#curriculum input').forEach(i=>i.value='');updateTotals();document.querySelectorAll('#records input').forEach((i,n)=>{if(i.classList.contains('cycle-label'))return;if(i.placeholder==='Ano letivo')i.value='';});document.querySelectorAll('.recschool').forEach(x=>{x.value=''});resizeSchoolNames();update()}
 function fillExample(){document.getElementById('student').value='NOME DO ALUNO';document.getElementById('sex').value='MASCULINO';document.getElementById('birth').value='01/01/2012';document.getElementById('conclusion').value='2026';update()}
 
 // Salva todos os campos preenchidos em um arquivo JSON que poderá ser aberto depois.
